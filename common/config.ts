@@ -44,4 +44,9 @@ export const configs = {
     cake: '0x0000000000000000000000000000000000000000',
     smartRouterHelper: '0xdAecee3C08e953Bd5f89A5Cc90ac560413d709E3',
   },
+  swanSaturn: {
+    WNATIVE: '0x14b5D4076A55596f5403691E9AA2faBe68e530CC',
+    nativeCurrencyLabel: 'ETH',
+    v2Factory: '0x3AAEAd256aA9df99BCbe20aF5368dbF9f1de5596',
+  },
 } as const

@@ -4,7 +4,7 @@ pragma abicoder v2;
 import './Setup.sol';
 import '../../../../../contracts/test/TestERC20.sol';
 import '../../../../../contracts/libraries/TickMath.sol';
-import '../../../../../contracts/PancakeV3Pool.sol';
+import '../../../../../contracts/MieV3Pool.sol';
 
 // import 'hardhat/console.sol';
 
@@ -12,7 +12,7 @@ contract E2E_swap {
     SetupTokens tokens;
     SetupUniswap uniswap;
 
-    PancakeV3Pool pool;
+    MieV3Pool pool;
 
     TestERC20 token0;
     TestERC20 token1;
@@ -65,11 +65,9 @@ contract E2E_swap {
     //
     //
 
-    function get_random_zeroForOne_priceLimit(int256 _amountSpecified)
-        internal
-        view
-        returns (uint160 sqrtPriceLimitX96)
-    {
+    function get_random_zeroForOne_priceLimit(
+        int256 _amountSpecified
+    ) internal view returns (uint160 sqrtPriceLimitX96) {
         // help echidna a bit by calculating a valid sqrtPriceLimitX96 using the amount as random seed
         (uint160 currentPrice, , , , , ) = pool.slot0();
         uint160 minimumPrice = TickMath.MIN_SQRT_RATIO;
@@ -80,11 +78,9 @@ contract E2E_swap {
             );
     }
 
-    function get_random_oneForZero_priceLimit(int256 _amountSpecified)
-        internal
-        view
-        returns (uint160 sqrtPriceLimitX96)
-    {
+    function get_random_oneForZero_priceLimit(
+        int256 _amountSpecified
+    ) internal view returns (uint160 sqrtPriceLimitX96) {
         // help echidna a bit by calculating a valid sqrtPriceLimitX96 using the amount as random seed
         (uint160 currentPrice, , , , , ) = pool.slot0();
         uint160 maximumPrice = TickMath.MAX_SQRT_RATIO;
@@ -189,11 +185,9 @@ contract E2E_swap {
     //
     //
 
-    function viewRandomInit(uint128 _seed)
-        public
-        view
-        returns (PoolParams memory poolParams, PoolPositions memory poolPositions)
-    {
+    function viewRandomInit(
+        uint128 _seed
+    ) public view returns (PoolParams memory poolParams, PoolPositions memory poolPositions) {
         poolParams = forgePoolParams(_seed);
         poolPositions = forgePoolPositions(_seed, poolParams.tickSpacing, poolParams.tickCount, poolParams.maxTick);
     }

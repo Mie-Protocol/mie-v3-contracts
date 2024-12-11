@@ -2,8 +2,8 @@ pragma solidity =0.7.6;
 pragma abicoder v2;
 
 import '../../../../../contracts/test/TestERC20.sol';
-import '../../../../../contracts/PancakeV3Pool.sol';
-import '../../../../../contracts/PancakesV3Factory.sol';
+import '../../../../../contracts/MieV3Pool.sol';
+import '../../../../../contracts/MiesV3Factory.sol';
 
 contract SetupToken {
     TestERC20 public token;
@@ -42,11 +42,7 @@ contract SetupTokens {
     }
 
     // mint either token0 or token1 to a chosen account
-    function mintTo(
-        uint256 _tokenIdx,
-        address _recipient,
-        uint256 _amount
-    ) public {
+    function mintTo(uint256 _tokenIdx, address _recipient, uint256 _amount) public {
         require(_tokenIdx == 0 || _tokenIdx == 1, 'invalid token idx');
         if (_tokenIdx == 0) tokenSetup0.mintTo(_recipient, _amount);
         if (_tokenIdx == 1) tokenSetup1.mintTo(_recipient, _amount);
@@ -54,7 +50,7 @@ contract SetupTokens {
 }
 
 contract SetupUniswap {
-    PancakeV3Pool public pool;
+    MieV3Pool public pool;
     TestERC20 token0;
     TestERC20 token1;
 
@@ -62,22 +58,22 @@ contract SetupUniswap {
     // fee 500   + tickSpacing 10
     // fee 3000  + tickSpacing 60
     // fee 10000 + tickSpacing 200
-    PancakesV3Factory factory;
+    MiesV3Factory factory;
 
     constructor(TestERC20 _token0, TestERC20 _token1) public {
-        factory = new PancakesV3Factory();
+        factory = new MiesV3Factory();
         token0 = _token0;
         token1 = _token1;
     }
 
     function createPool(uint24 _fee, uint160 _startPrice) public {
-        pool = PancakeV3Pool(factory.createPool(address(token0), address(token1), _fee));
+        pool = MieV3Pool(factory.createPool(address(token0), address(token1), _fee));
         pool.initialize(_startPrice);
     }
 }
 
 contract UniswapMinter {
-    PancakeV3Pool pool;
+    MieV3Pool pool;
     TestERC20 token0;
     TestERC20 token1;
 
@@ -94,29 +90,19 @@ contract UniswapMinter {
         token1 = _token1;
     }
 
-    function setPool(PancakeV3Pool _pool) public {
+    function setPool(MieV3Pool _pool) public {
         pool = _pool;
     }
 
-    function PancakeV3MintCallback(
-        uint256 amount0Owed,
-        uint256 amount1Owed,
-        bytes calldata data
-    ) external {
+    function MieV3MintCallback(uint256 amount0Owed, uint256 amount1Owed, bytes calldata data) external {
         if (amount0Owed > 0) token0.transfer(address(pool), amount0Owed);
         if (amount1Owed > 0) token1.transfer(address(pool), amount1Owed);
     }
 
-    function getTickLiquidityVars(int24 _tickLower, int24 _tickUpper)
-        internal
-        view
-        returns (
-            uint128,
-            int128,
-            uint128,
-            int128
-        )
-    {
+    function getTickLiquidityVars(
+        int24 _tickLower,
+        int24 _tickUpper
+    ) internal view returns (uint128, int128, uint128, int128) {
         (uint128 tL_liqGross, int128 tL_liqNet, , ) = pool.ticks(_tickLower);
         (uint128 tU_liqGross, int128 tU_liqNet, , ) = pool.ticks(_tickUpper);
         return (tL_liqGross, tL_liqNet, tU_liqGross, tU_liqNet);
@@ -149,7 +135,7 @@ contract UniswapMinter {
 }
 
 contract UniswapSwapper {
-    PancakeV3Pool pool;
+    MieV3Pool pool;
     TestERC20 token0;
     TestERC20 token1;
 
@@ -167,15 +153,11 @@ contract UniswapSwapper {
         token1 = _token1;
     }
 
-    function setPool(PancakeV3Pool _pool) public {
+    function setPool(MieV3Pool _pool) public {
         pool = _pool;
     }
 
-    function PancakeV3SwapCallback(
-        int256 amount0Delta,
-        int256 amount1Delta,
-        bytes calldata data
-    ) external {
+    function MieV3SwapCallback(int256 amount0Delta, int256 amount1Delta, bytes calldata data) external {
         if (amount0Delta > 0) token0.transfer(address(pool), uint256(amount0Delta));
         if (amount1Delta > 0) token1.transfer(address(pool), uint256(amount1Delta));
     }

@@ -5,6 +5,5 @@
 ### deploy
 
 ```solidity
-function deploy(contract IPancakeV3Pool pool) external returns (contract ILMPool lmPool)
+function deploy(contract IMieV3Pool pool) external returns (contract ILMPool lmPool)
 ```
-

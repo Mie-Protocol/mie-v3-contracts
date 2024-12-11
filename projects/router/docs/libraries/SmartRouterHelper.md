@@ -82,17 +82,17 @@ Returns PoolKey: the ordered tokens with the matched fee levels
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| tokenA | address | The first token of a pool, unsorted |
+| Name   | Type    | Description                          |
+| ------ | ------- | ------------------------------------ |
+| tokenA | address | The first token of a pool, unsorted  |
 | tokenB | address | The second token of a pool, unsorted |
-| fee | uint24 | The fee level of the pool |
+| fee    | uint24  | The fee level of the pool            |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| [0] | struct SmartRouterHelper.PoolKey | Poolkey The pool details with ordered token0 and token1 assignments |
+| Name | Type                             | Description                                                         |
+| ---- | -------------------------------- | ------------------------------------------------------------------- |
+| [0]  | struct SmartRouterHelper.PoolKey | Poolkey The pool details with ordered token0 and token1 assignments |
 
 ### computeAddress
 
@@ -104,21 +104,21 @@ Deterministically computes the pool address given the deployer and PoolKey
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| deployer | address | The PancakeSwap V3 deployer contract address |
-| key | struct SmartRouterHelper.PoolKey | The PoolKey |
+| Name     | Type                             | Description                              |
+| -------- | -------------------------------- | ---------------------------------------- |
+| deployer | address                          | The MieSwap V3 deployer contract address |
+| key      | struct SmartRouterHelper.PoolKey | The PoolKey                              |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name | Type    | Description                         |
+| ---- | ------- | ----------------------------------- |
 | pool | address | The contract address of the V3 pool |
 
 ### getPool
 
 ```solidity
-function getPool(address deployer, address tokenA, address tokenB, uint24 fee) public pure returns (contract IPancakeV3Pool)
+function getPool(address deployer, address tokenA, address tokenB, uint24 fee) public pure returns (contract IMieV3Pool)
 ```
 
 _Returns the pool for the given token pair and fee. The pool contract may or may not exist._
@@ -126,44 +126,43 @@ _Returns the pool for the given token pair and fee. The pool contract may or may
 ### verifyCallback
 
 ```solidity
-function verifyCallback(address deployer, address tokenA, address tokenB, uint24 fee) public view returns (contract IPancakeV3Pool pool)
+function verifyCallback(address deployer, address tokenA, address tokenB, uint24 fee) public view returns (contract IMieV3Pool pool)
 ```
 
-Returns the address of a valid PancakeSwap V3 Pool
+Returns the address of a valid MieSwap V3 Pool
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| deployer | address | The contract address of the PancakeSwap V3 deployer |
-| tokenA | address | The contract address of either token0 or token1 |
-| tokenB | address | The contract address of the other token |
-| fee | uint24 | The fee collected upon every swap in the pool, denominated in hundredths of a bip |
+| Name     | Type    | Description                                                                       |
+| -------- | ------- | --------------------------------------------------------------------------------- |
+| deployer | address | The contract address of the MieSwap V3 deployer                                   |
+| tokenA   | address | The contract address of either token0 or token1                                   |
+| tokenB   | address | The contract address of the other token                                           |
+| fee      | uint24  | The fee collected upon every swap in the pool, denominated in hundredths of a bip |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| pool | contract IPancakeV3Pool | The V3 pool contract address |
+| Name | Type                | Description                  |
+| ---- | ------------------- | ---------------------------- |
+| pool | contract IMieV3Pool | The V3 pool contract address |
 
 ### verifyCallback
 
 ```solidity
-function verifyCallback(address deployer, struct SmartRouterHelper.PoolKey poolKey) public view returns (contract IPancakeV3Pool pool)
+function verifyCallback(address deployer, struct SmartRouterHelper.PoolKey poolKey) public view returns (contract IMieV3Pool pool)
 ```
 
-Returns the address of a valid PancakeSwap V3 Pool
+Returns the address of a valid MieSwap V3 Pool
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| deployer | address | The contract address of the PancakeSwap V3 deployer |
-| poolKey | struct SmartRouterHelper.PoolKey | The identifying key of the V3 pool |
+| Name     | Type                             | Description                                     |
+| -------- | -------------------------------- | ----------------------------------------------- |
+| deployer | address                          | The contract address of the MieSwap V3 deployer |
+| poolKey  | struct SmartRouterHelper.PoolKey | The identifying key of the V3 pool              |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| pool | contract IPancakeV3Pool | The V3 pool contract address |
-
+| Name | Type                | Description                  |
+| ---- | ------------------- | ---------------------------- |
+| pool | contract IMieV3Pool | The V3 pool contract address |

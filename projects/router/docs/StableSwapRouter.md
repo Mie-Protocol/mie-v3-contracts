@@ -32,7 +32,7 @@ constructor(address _stableSwapFactory, address _stableSwapInfo) internal
 function setStableSwap(address _factory, address _info) external
 ```
 
-Set Pancake Stable Swap Factory and Info
+Set Mie Stable Swap Factory and Info
 
 _Only callable by contract owner_
 
@@ -44,13 +44,13 @@ function exactInputStableSwap(address[] path, uint256[] flag, uint256 amountIn, 
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| path | address[] |  |
-| flag | uint256[] | token amount in a stable swap pool. 2 for 2pool, 3 for 3pool |
-| amountIn | uint256 |  |
-| amountOutMin | uint256 |  |
-| to | address |  |
+| Name         | Type      | Description                                                  |
+| ------------ | --------- | ------------------------------------------------------------ |
+| path         | address[] |                                                              |
+| flag         | uint256[] | token amount in a stable swap pool. 2 for 2pool, 3 for 3pool |
+| amountIn     | uint256   |                                                              |
+| amountOutMin | uint256   |                                                              |
+| to           | address   |                                                              |
 
 ### exactOutputStableSwap
 
@@ -60,11 +60,10 @@ function exactOutputStableSwap(address[] path, uint256[] flag, uint256 amountOut
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| path | address[] |  |
-| flag | uint256[] | token amount in a stable swap pool. 2 for 2pool, 3 for 3pool |
-| amountOut | uint256 |  |
-| amountInMax | uint256 |  |
-| to | address |  |
-
+| Name        | Type      | Description                                                  |
+| ----------- | --------- | ------------------------------------------------------------ |
+| path        | address[] |                                                              |
+| flag        | uint256[] | token amount in a stable swap pool. 2 for 2pool, 3 for 3pool |
+| amountOut   | uint256   |                                                              |
+| amountInMax | uint256   |                                                              |
+| to          | address   |                                                              |

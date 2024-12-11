@@ -2,7 +2,7 @@
 
 ## NFTSVG
 
-Provides a function for generating an SVG associated with a PancakeSwap NFT
+Provides a function for generating an SVG associated with a MieSwap NFT
 
 ### curve1
 
@@ -109,4 +109,3 @@ function rangeLocation(int24 tickLower, int24 tickUpper) internal pure returns (
 ```solidity
 function isRare(uint256 tokenId, address poolAddress) internal pure returns (bool)
 ```
-

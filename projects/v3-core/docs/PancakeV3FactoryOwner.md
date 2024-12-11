@@ -1,21 +1,21 @@
 # Solidity API
 
-## IPancakeV3PoolWithLmPool
+## IMieV3PoolWithLmPool
 
 ### setLmPool
 
 ```solidity
-function setLmPool(contract IPancakeV3LmPool lmPool) external
+function setLmPool(contract IMieV3LmPool lmPool) external
 ```
 
-## PancakeV3FactoryOwner
+## MieV3FactoryOwner
 
 Manages ownership and control over factory and pools
 
 ### factory
 
 ```solidity
-contract IPancakeV3Factory factory
+contract IMieV3Factory factory
 ```
 
 ### owner
@@ -40,10 +40,10 @@ Emitted when the owner of the factory is changed
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name     | Type    | Description                            |
+| -------- | ------- | -------------------------------------- |
 | oldOwner | address | The owner before the owner was changed |
-| newOwner | address | The owner after the owner was changed |
+| newOwner | address | The owner after the owner was changed  |
 
 ### SetLmPoolDeployer
 
@@ -68,7 +68,7 @@ modifier onlyOwnerOrLmPoolDeployer()
 ### constructor
 
 ```solidity
-constructor(contract IPancakeV3Factory _factory) public
+constructor(contract IMieV3Factory _factory) public
 ```
 
 ### setOwner
@@ -98,13 +98,13 @@ function enableFeeAmount(uint24 fee, int24 tickSpacing) external
 ### setFeeProtocol
 
 ```solidity
-function setFeeProtocol(contract IPancakeV3Pool pool, uint8 feeProtocol0, uint8 feeProtocol1) external
+function setFeeProtocol(contract IMieV3Pool pool, uint8 feeProtocol0, uint8 feeProtocol1) external
 ```
 
 ### collectProtocol
 
 ```solidity
-function collectProtocol(contract IPancakeV3Pool pool, address recipient, uint128 amount0Requested, uint128 amount1Requested) external returns (uint128 amount0, uint128 amount1)
+function collectProtocol(contract IMieV3Pool pool, address recipient, uint128 amount0Requested, uint128 amount1Requested) external returns (uint128 amount0, uint128 amount1)
 ```
 
 ### setLmPool
@@ -112,4 +112,3 @@ function collectProtocol(contract IPancakeV3Pool pool, address recipient, uint12
 ```solidity
 function setLmPool(address pool, address lmPool) external
 ```
-

@@ -1,0 +1,75 @@
+{
+  "manifestVersion": "3.2",
+  "admin": {
+    "address": "0x52804AC4DC8006102bd799934b1347083A592bda",
+    "txHash": "0x33068ba119334121a8246442f9888b829206a21ad48dedb4e782a3f601c61021"
+  },
+  "proxies": [
+    {
+      "address": "0xfbf804A98B9938243A42EA2a481De577763bB366",
+      "txHash": "0x98b7f3b57d5c08341d2c1f061e98849d3debfcbed1f6488173a89092d5ec60eb",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x4646654A10433eC738E8B833e630FcD180DdbF97",
+      "txHash": "0x24df5d29ce5ba89da2b6a2b5c543de18b017293e90c998dac191b820b1bb1350",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xbA4276738FDeAf08f2502Bc6b3231C231B79fAD4",
+      "txHash": "0xc1da0e84c6bfa970ffdb76db98b745e57bd1c87f7a6276cff0fed95629a9486f",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x5F739bD4DCD529A8026c8B27c768581511Ba81ED",
+      "txHash": "0xb5f463e4f30cf923cab6c749aad925b759658096d6d8a7de6522ec33e4f502c0",
+      "kind": "transparent"
+    }
+  ],
+  "impls": {
+    "2a88f0a49a9c25b1c479a31be14897cf1d01115d45ba4287ded3734b5bb356e7": {
+      "address": "0x610053B344bbC98218849E7dd22B10eDbB832957",
+      "txHash": "0x2c5c801a5e175f6659979564cc0f986b1fcf8ddd668a02af6c43f4477e31ad1d",
+      "layout": {
+        "solcVersion": "0.7.6",
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/Initializable.sol:25"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/Initializable.sol:30"
+          },
+          {
+            "label": "_baseTokenURI",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_string_storage",
+            "contract": "NonfungibleTokenPositionDescriptorOffChain",
+            "src": "contracts/NonfungibleTokenPositionDescriptorOffChain.sol:14"
+          }
+        ],
+        "types": {
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          }
+        },
+        "namespaces": {}
+      }
+    }
+  }
+}

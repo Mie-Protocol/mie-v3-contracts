@@ -1,6 +1,6 @@
 # Solidity API
 
-## IPancakeV3PoolActions
+## IMieV3PoolActions
 
 Contains pool methods that can be called by anyone
 
@@ -16,8 +16,8 @@ _Price is represented as a sqrt(amountToken1/amountToken0) Q64.96 value_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name         | Type    | Description                                    |
+| ------------ | ------- | ---------------------------------------------- |
 | sqrtPriceX96 | uint160 | the initial sqrt price of the pool as a Q64.96 |
 
 ### mint
@@ -28,24 +28,24 @@ function mint(address recipient, int24 tickLower, int24 tickUpper, uint128 amoun
 
 Adds liquidity for the given recipient/tickLower/tickUpper position
 
-_The caller of this method receives a callback in the form of IPancakeV3MintCallback#pancakeV3MintCallback
+_The caller of this method receives a callback in the form of IMieV3MintCallback#MieV3MintCallback
 in which they must pay any token0 or token1 owed for the liquidity. The amount of token0/token1 due depends
 on tickLower, tickUpper, the amount of liquidity, and the current price._
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| recipient | address | The address for which the liquidity will be created |
-| tickLower | int24 | The lower tick of the position in which to add liquidity |
-| tickUpper | int24 | The upper tick of the position in which to add liquidity |
-| amount | uint128 | The amount of liquidity to mint |
-| data | bytes | Any data that should be passed through to the callback |
+| Name      | Type    | Description                                              |
+| --------- | ------- | -------------------------------------------------------- |
+| recipient | address | The address for which the liquidity will be created      |
+| tickLower | int24   | The lower tick of the position in which to add liquidity |
+| tickUpper | int24   | The upper tick of the position in which to add liquidity |
+| amount    | uint128 | The amount of liquidity to mint                          |
+| data      | bytes   | Any data that should be passed through to the callback   |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name    | Type    | Description                                                                                                 |
+| ------- | ------- | ----------------------------------------------------------------------------------------------------------- |
 | amount0 | uint256 | The amount of token0 that was paid to mint the given amount of liquidity. Matches the value in the callback |
 | amount1 | uint256 | The amount of token1 that was paid to mint the given amount of liquidity. Matches the value in the callback |
 
@@ -64,18 +64,18 @@ actual tokens owed, e.g. type(uint128).max. Tokens owed may be from accumulated 
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| recipient | address | The address which should receive the fees collected |
-| tickLower | int24 | The lower tick of the position for which to collect fees |
-| tickUpper | int24 | The upper tick of the position for which to collect fees |
-| amount0Requested | uint128 | How much token0 should be withdrawn from the fees owed |
-| amount1Requested | uint128 | How much token1 should be withdrawn from the fees owed |
+| Name             | Type    | Description                                              |
+| ---------------- | ------- | -------------------------------------------------------- |
+| recipient        | address | The address which should receive the fees collected      |
+| tickLower        | int24   | The lower tick of the position for which to collect fees |
+| tickUpper        | int24   | The upper tick of the position for which to collect fees |
+| amount0Requested | uint128 | How much token0 should be withdrawn from the fees owed   |
+| amount1Requested | uint128 | How much token1 should be withdrawn from the fees owed   |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name    | Type    | Description                            |
+| ------- | ------- | -------------------------------------- |
 | amount0 | uint128 | The amount of fees collected in token0 |
 | amount1 | uint128 | The amount of fees collected in token1 |
 
@@ -92,16 +92,16 @@ Fees must be collected separately via a call to #collect_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| tickLower | int24 | The lower tick of the position for which to burn liquidity |
-| tickUpper | int24 | The upper tick of the position for which to burn liquidity |
-| amount | uint128 | How much liquidity to burn |
+| Name      | Type    | Description                                                |
+| --------- | ------- | ---------------------------------------------------------- |
+| tickLower | int24   | The lower tick of the position for which to burn liquidity |
+| tickUpper | int24   | The upper tick of the position for which to burn liquidity |
+| amount    | uint128 | How much liquidity to burn                                 |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name    | Type    | Description                                |
+| ------- | ------- | ------------------------------------------ |
 | amount0 | uint256 | The amount of token0 sent to the recipient |
 | amount1 | uint256 | The amount of token1 sent to the recipient |
 
@@ -113,22 +113,22 @@ function swap(address recipient, bool zeroForOne, int256 amountSpecified, uint16
 
 Swap token0 for token1, or token1 for token0
 
-_The caller of this method receives a callback in the form of IPancakeV3SwapCallback#pancakeV3SwapCallback_
+_The caller of this method receives a callback in the form of IMieV3SwapCallback#MieV3SwapCallback_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| recipient | address | The address to receive the output of the swap |
-| zeroForOne | bool | The direction of the swap, true for token0 to token1, false for token1 to token0 |
-| amountSpecified | int256 | The amount of the swap, which implicitly configures the swap as exact input (positive), or exact output (negative) |
+| Name              | Type    | Description                                                                                                                                                                        |
+| ----------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| recipient         | address | The address to receive the output of the swap                                                                                                                                      |
+| zeroForOne        | bool    | The direction of the swap, true for token0 to token1, false for token1 to token0                                                                                                   |
+| amountSpecified   | int256  | The amount of the swap, which implicitly configures the swap as exact input (positive), or exact output (negative)                                                                 |
 | sqrtPriceLimitX96 | uint160 | The Q64.96 sqrt price limit. If zero for one, the price cannot be less than this value after the swap. If one for zero, the price cannot be greater than this value after the swap |
-| data | bytes | Any data to be passed through to the callback |
+| data              | bytes   | Any data to be passed through to the callback                                                                                                                                      |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name    | Type   | Description                                                                                |
+| ------- | ------ | ------------------------------------------------------------------------------------------ |
 | amount0 | int256 | The delta of the balance of token0 of the pool, exact when negative, minimum when positive |
 | amount1 | int256 | The delta of the balance of token1 of the pool, exact when negative, minimum when positive |
 
@@ -140,18 +140,18 @@ function flash(address recipient, uint256 amount0, uint256 amount1, bytes data) 
 
 Receive token0 and/or token1 and pay it back, plus a fee, in the callback
 
-_The caller of this method receives a callback in the form of IPancakeV3FlashCallback#pancakeV3FlashCallback
+_The caller of this method receives a callback in the form of IMieV3FlashCallback#MieV3FlashCallback
 Can be used to donate underlying tokens pro-rata to currently in-range liquidity providers by calling
 with 0 amount{0,1} and sending the donation amount(s) from the callback_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name      | Type    | Description                                                  |
+| --------- | ------- | ------------------------------------------------------------ |
 | recipient | address | The address which will receive the token0 and token1 amounts |
-| amount0 | uint256 | The amount of token0 to send |
-| amount1 | uint256 | The amount of token1 to send |
-| data | bytes | Any data to be passed through to the callback |
+| amount0   | uint256 | The amount of token0 to send                                 |
+| amount1   | uint256 | The amount of token1 to send                                 |
+| data      | bytes   | Any data to be passed through to the callback                |
 
 ### increaseObservationCardinalityNext
 
@@ -166,7 +166,6 @@ the input observationCardinalityNext._
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name                       | Type   | Description                                                      |
+| -------------------------- | ------ | ---------------------------------------------------------------- |
 | observationCardinalityNext | uint16 | The desired minimum number of observations for the pool to store |
-

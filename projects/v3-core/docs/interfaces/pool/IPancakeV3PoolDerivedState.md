@@ -1,6 +1,6 @@
 # Solidity API
 
-## IPancakeV3PoolDerivedState
+## IMieV3PoolDerivedState
 
 Contains view functions to provide information about the pool that is computed rather than stored on the
 blockchain. The functions here may have variable gas costs.
@@ -21,15 +21,15 @@ log base sqrt(1.0001) of token1 / token0. The TickMath library can be used to go
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name        | Type     | Description                                                                   |
+| ----------- | -------- | ----------------------------------------------------------------------------- |
 | secondsAgos | uint32[] | From how long ago each cumulative tick and liquidity value should be returned |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| tickCumulatives | int56[] | Cumulative tick values as of each `secondsAgos` from the current block timestamp |
+| Name                               | Type      | Description                                                                                               |
+| ---------------------------------- | --------- | --------------------------------------------------------------------------------------------------------- |
+| tickCumulatives                    | int56[]   | Cumulative tick values as of each `secondsAgos` from the current block timestamp                          |
 | secondsPerLiquidityCumulativeX128s | uint160[] | Cumulative seconds per liquidity-in-range value as of each `secondsAgos` from the current block timestamp |
 
 ### snapshotCumulativesInside
@@ -46,16 +46,15 @@ snapshot is taken and the second snapshot is taken._
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name      | Type  | Description                 |
+| --------- | ----- | --------------------------- |
 | tickLower | int24 | The lower tick of the range |
 | tickUpper | int24 | The upper tick of the range |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| tickCumulativeInside | int56 | The snapshot of the tick accumulator for the range |
+| Name                          | Type    | Description                                         |
+| ----------------------------- | ------- | --------------------------------------------------- |
+| tickCumulativeInside          | int56   | The snapshot of the tick accumulator for the range  |
 | secondsPerLiquidityInsideX128 | uint160 | The snapshot of seconds per liquidity for the range |
-| secondsInside | uint32 | The snapshot of seconds per liquidity for the range |
-
+| secondsInside                 | uint32  | The snapshot of seconds per liquidity for the range |

@@ -1,8 +1,8 @@
 # Solidity API
 
-## IPancakeV3Factory
+## IMieV3Factory
 
-The PancakeSwap V3 Factory facilitates creation of PancakeSwap V3 pools and control over the protocol fees
+The MieSwap V3 Factory facilitates creation of MieSwap V3 pools and control over the protocol fees
 
 ### TickSpacingExtraInfo
 
@@ -23,10 +23,10 @@ Emitted when the owner of the factory is changed
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name     | Type    | Description                            |
+| -------- | ------- | -------------------------------------- |
 | oldOwner | address | The owner before the owner was changed |
-| newOwner | address | The owner after the owner was changed |
+| newOwner | address | The owner after the owner was changed  |
 
 ### PoolCreated
 
@@ -38,13 +38,13 @@ Emitted when a pool is created
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| token0 | address | The first token of the pool by address sort order |
-| token1 | address | The second token of the pool by address sort order |
-| fee | uint24 | The fee collected upon every swap in the pool, denominated in hundredths of a bip |
-| tickSpacing | int24 | The minimum number of ticks between initialized ticks |
-| pool | address | The address of the created pool |
+| Name        | Type    | Description                                                                       |
+| ----------- | ------- | --------------------------------------------------------------------------------- |
+| token0      | address | The first token of the pool by address sort order                                 |
+| token1      | address | The second token of the pool by address sort order                                |
+| fee         | uint24  | The fee collected upon every swap in the pool, denominated in hundredths of a bip |
+| tickSpacing | int24   | The minimum number of ticks between initialized ticks                             |
+| pool        | address | The address of the created pool                                                   |
 
 ### FeeAmountEnabled
 
@@ -56,10 +56,10 @@ Emitted when a new fee amount is enabled for pool creation via the factory
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| fee | uint24 | The enabled fee, denominated in hundredths of a bip |
-| tickSpacing | int24 | The minimum number of ticks between initialized ticks for pools created with the given fee |
+| Name        | Type   | Description                                                                                |
+| ----------- | ------ | ------------------------------------------------------------------------------------------ |
+| fee         | uint24 | The enabled fee, denominated in hundredths of a bip                                        |
+| tickSpacing | int24  | The minimum number of ticks between initialized ticks for pools created with the given fee |
 
 ### FeeAmountExtraInfoUpdated
 
@@ -85,9 +85,9 @@ _Can be changed by the current owner via setOwner_
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| [0] | address | The address of the factory owner |
+| Name | Type    | Description                      |
+| ---- | ------- | -------------------------------- |
+| [0]  | address | The address of the factory owner |
 
 ### poolDeployer
 
@@ -109,15 +109,15 @@ _A fee amount can never be removed, so this value should be hard coded or cached
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| fee | uint24 | The enabled fee, denominated in hundredths of a bip. Returns 0 in case of unenabled fee |
+| Name | Type   | Description                                                                             |
+| ---- | ------ | --------------------------------------------------------------------------------------- |
+| fee  | uint24 | The enabled fee, denominated in hundredths of a bip. Returns 0 in case of unenabled fee |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| [0] | int24 | The tick spacing |
+| Name | Type  | Description      |
+| ---- | ----- | ---------------- |
+| [0]  | int24 | The tick spacing |
 
 ### feeAmountTickSpacingExtraInfo
 
@@ -131,16 +131,16 @@ _A fee amount can never be removed, so this value should be hard coded or cached
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| fee | uint24 | The enabled fee, denominated in hundredths of a bip. Returns 0 in case of unenabled fee |
+| Name | Type   | Description                                                                             |
+| ---- | ------ | --------------------------------------------------------------------------------------- |
+| fee  | uint24 | The enabled fee, denominated in hundredths of a bip. Returns 0 in case of unenabled fee |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name               | Type | Description                                                 |
+| ------------------ | ---- | ----------------------------------------------------------- |
 | whitelistRequested | bool | The flag whether should be created by white list users only |
-| enabled | bool |  |
+| enabled            | bool |                                                             |
 
 ### getPool
 
@@ -154,16 +154,16 @@ _tokenA and tokenB may be passed in either token0/token1 or token1/token0 order_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| tokenA | address | The contract address of either token0 or token1 |
-| tokenB | address | The contract address of the other token |
-| fee | uint24 | The fee collected upon every swap in the pool, denominated in hundredths of a bip |
+| Name   | Type    | Description                                                                       |
+| ------ | ------- | --------------------------------------------------------------------------------- |
+| tokenA | address | The contract address of either token0 or token1                                   |
+| tokenB | address | The contract address of the other token                                           |
+| fee    | uint24  | The fee collected upon every swap in the pool, denominated in hundredths of a bip |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name | Type    | Description      |
+| ---- | ------- | ---------------- |
 | pool | address | The pool address |
 
 ### createPool
@@ -180,16 +180,16 @@ are invalid._
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| tokenA | address | One of the two tokens in the desired pool |
+| Name   | Type    | Description                                     |
+| ------ | ------- | ----------------------------------------------- |
+| tokenA | address | One of the two tokens in the desired pool       |
 | tokenB | address | The other of the two tokens in the desired pool |
-| fee | uint24 | The desired fee for the pool |
+| fee    | uint24  | The desired fee for the pool                    |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name | Type    | Description                           |
+| ---- | ------- | ------------------------------------- |
 | pool | address | The address of the newly created pool |
 
 ### setOwner
@@ -204,9 +204,9 @@ _Must be called by the current owner_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| _owner | address | The new owner of the factory |
+| Name    | Type    | Description                  |
+| ------- | ------- | ---------------------------- |
+| \_owner | address | The new owner of the factory |
 
 ### enableFeeAmount
 
@@ -220,10 +220,10 @@ _Fee amounts may never be removed once enabled_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| fee | uint24 | The fee amount to enable, denominated in hundredths of a bip (i.e. 1e-6) |
-| tickSpacing | int24 | The spacing between ticks to be enforced for all pools created with the given fee amount |
+| Name        | Type   | Description                                                                              |
+| ----------- | ------ | ---------------------------------------------------------------------------------------- |
+| fee         | uint24 | The fee amount to enable, denominated in hundredths of a bip (i.e. 1e-6)                 |
+| tickSpacing | int24  | The spacing between ticks to be enforced for all pools created with the given fee amount |
 
 ### setWhiteListAddress
 
@@ -237,10 +237,10 @@ _Address can be updated by owner with boolean value false_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| user | address | The user address that add into white list |
-| verified | bool |  |
+| Name     | Type    | Description                               |
+| -------- | ------- | ----------------------------------------- |
+| user     | address | The user address that add into white list |
+| verified | bool    |                                           |
 
 ### setFeeAmountExtraInfo
 
@@ -254,9 +254,8 @@ _Fee amounts can be updated by owner with extra info_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| fee | uint24 |  |
-| whitelistRequested | bool | The flag whether should be created by owner only |
-| enabled | bool | The flag is the fee is enabled or not |
-
+| Name               | Type   | Description                                      |
+| ------------------ | ------ | ------------------------------------------------ |
+| fee                | uint24 |                                                  |
+| whitelistRequested | bool   | The flag whether should be created by owner only |
+| enabled            | bool   | The flag is the fee is enabled or not            |

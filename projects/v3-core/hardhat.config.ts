@@ -11,7 +11,7 @@ require('dotenv').config({ path: require('find-config')('.env') })
 const LOW_OPTIMIZER_COMPILER_SETTINGS = {
   version: '0.7.6',
   settings: {
-    evmVersion: 'istanbul',
+    evmVersion: 'default',
     optimizer: {
       enabled: true,
       runs: 2_000,
@@ -25,7 +25,7 @@ const LOW_OPTIMIZER_COMPILER_SETTINGS = {
 const LOWEST_OPTIMIZER_COMPILER_SETTINGS = {
   version: '0.7.6',
   settings: {
-    evmVersion: 'istanbul',
+    evmVersion: 'default',
     optimizer: {
       enabled: true,
       runs: 400,
@@ -39,10 +39,10 @@ const LOWEST_OPTIMIZER_COMPILER_SETTINGS = {
 const DEFAULT_COMPILER_SETTINGS = {
   version: '0.7.6',
   settings: {
-    evmVersion: 'istanbul',
+    evmVersion: 'default',
     optimizer: {
       enabled: true,
-      runs: 1_000_000,
+      runs: 400,
     },
     metadata: {
       bytecodeHash: 'none',
@@ -74,6 +74,12 @@ const eth: NetworkUserConfig = {
   accounts: [process.env.KEY_ETH!],
 }
 
+const swanSaturn: NetworkUserConfig = {
+  url: 'https://saturn-rpc.swanchain.io/',
+  chainId: 2024,
+  accounts: [process.env.KEY_SATURN!],
+}
+
 export default {
   networks: {
     hardhat: {
@@ -83,6 +89,7 @@ export default {
     ...(process.env.KEY_MAINNET && { bscMainnet }),
     ...(process.env.KEY_GOERLI && { goerli }),
     ...(process.env.KEY_ETH && { eth }),
+    ...(process.env.KEY_SATURN && { swanSaturn }),
     // mainnet: bscMainnet,
   },
   etherscan: {
@@ -91,8 +98,8 @@ export default {
   solidity: {
     compilers: [DEFAULT_COMPILER_SETTINGS],
     overrides: {
-      'contracts/PancakeV3Pool.sol': LOWEST_OPTIMIZER_COMPILER_SETTINGS,
-      'contracts/PancakeV3PoolDeployer.sol': LOWEST_OPTIMIZER_COMPILER_SETTINGS,
+      'contracts/MieV3Pool.sol': LOWEST_OPTIMIZER_COMPILER_SETTINGS,
+      'contracts/MieV3PoolDeployer.sol': LOWEST_OPTIMIZER_COMPILER_SETTINGS,
       'contracts/test/OutputCodeHash.sol': LOWEST_OPTIMIZER_COMPILER_SETTINGS,
     },
   },

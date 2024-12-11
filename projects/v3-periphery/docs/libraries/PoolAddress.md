@@ -28,17 +28,17 @@ Returns PoolKey: the ordered tokens with the matched fee levels
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| tokenA | address | The first token of a pool, unsorted |
+| Name   | Type    | Description                          |
+| ------ | ------- | ------------------------------------ |
+| tokenA | address | The first token of a pool, unsorted  |
 | tokenB | address | The second token of a pool, unsorted |
-| fee | uint24 | The fee level of the pool |
+| fee    | uint24  | The fee level of the pool            |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| [0] | struct PoolAddress.PoolKey | Poolkey The pool details with ordered token0 and token1 assignments |
+| Name | Type                       | Description                                                         |
+| ---- | -------------------------- | ------------------------------------------------------------------- |
+| [0]  | struct PoolAddress.PoolKey | Poolkey The pool details with ordered token0 and token1 assignments |
 
 ### computeAddress
 
@@ -50,14 +50,13 @@ Deterministically computes the pool address given the factory and PoolKey
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| deployer | address | The PancakeSwap V3 deployer contract address |
-| key | struct PoolAddress.PoolKey | The PoolKey |
+| Name     | Type                       | Description                              |
+| -------- | -------------------------- | ---------------------------------------- |
+| deployer | address                    | The MieSwap V3 deployer contract address |
+| key      | struct PoolAddress.PoolKey | The PoolKey                              |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name | Type    | Description                         |
+| ---- | ------- | ----------------------------------- |
 | pool | address | The contract address of the V3 pool |
-

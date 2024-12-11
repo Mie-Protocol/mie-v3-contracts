@@ -2,7 +2,7 @@
 
 ## ISwapRouter
 
-Functions for swapping tokens via PancakeSwap V3
+Functions for swapping tokens via MieSwap V3
 
 ### ExactInputSingleParams
 
@@ -29,14 +29,14 @@ Swaps `amountIn` of one token for as much as possible of another token
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name   | Type                                      | Description                                                                            |
+| ------ | ----------------------------------------- | -------------------------------------------------------------------------------------- |
 | params | struct ISwapRouter.ExactInputSingleParams | The parameters necessary for the swap, encoded as `ExactInputSingleParams` in calldata |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name      | Type    | Description                      |
+| --------- | ------- | -------------------------------- |
 | amountOut | uint256 | The amount of the received token |
 
 ### ExactInputParams
@@ -61,14 +61,14 @@ Swaps `amountIn` of one token for as much as possible of another along the speci
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name   | Type                                | Description                                                                                |
+| ------ | ----------------------------------- | ------------------------------------------------------------------------------------------ |
 | params | struct ISwapRouter.ExactInputParams | The parameters necessary for the multi-hop swap, encoded as `ExactInputParams` in calldata |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name      | Type    | Description                      |
+| --------- | ------- | -------------------------------- |
 | amountOut | uint256 | The amount of the received token |
 
 ### ExactOutputSingleParams
@@ -96,14 +96,14 @@ Swaps as little as possible of one token for `amountOut` of another token
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name   | Type                                       | Description                                                                             |
+| ------ | ------------------------------------------ | --------------------------------------------------------------------------------------- |
 | params | struct ISwapRouter.ExactOutputSingleParams | The parameters necessary for the swap, encoded as `ExactOutputSingleParams` in calldata |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name     | Type    | Description                   |
+| -------- | ------- | ----------------------------- |
 | amountIn | uint256 | The amount of the input token |
 
 ### ExactOutputParams
@@ -128,13 +128,12 @@ Swaps as little as possible of one token for `amountOut` of another along the sp
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name   | Type                                 | Description                                                                                 |
+| ------ | ------------------------------------ | ------------------------------------------------------------------------------------------- |
 | params | struct ISwapRouter.ExactOutputParams | The parameters necessary for the multi-hop swap, encoded as `ExactOutputParams` in calldata |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name     | Type    | Description                   |
+| -------- | ------- | ----------------------------- |
 | amountIn | uint256 | The amount of the input token |
-

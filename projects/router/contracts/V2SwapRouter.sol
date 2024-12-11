@@ -2,7 +2,7 @@
 pragma solidity =0.7.6;
 pragma abicoder v2;
 
-import '@pancakeswap/v3-core/contracts/libraries/LowGasSafeMath.sol';
+import '@Mieswap/v3-core/contracts/libraries/LowGasSafeMath.sol';
 import '@openzeppelin/contracts/token/ERC20/IERC20.sol';
 import '@openzeppelin/contracts/utils/ReentrancyGuard.sol';
 
@@ -12,8 +12,8 @@ import './base/PeripheryPaymentsWithFeeExtended.sol';
 import './libraries/Constants.sol';
 import './libraries/SmartRouterHelper.sol';
 
-/// @title PancakeSwap V2 Swap Router
-/// @notice Router for stateless execution of swaps against PancakeSwap V2
+/// @title MieSwap V2 Swap Router
+/// @notice Router for stateless execution of swaps against MieSwap V2
 abstract contract V2SwapRouter is IV2SwapRouter, ImmutableState, PeripheryPaymentsWithFeeExtended, ReentrancyGuard {
     using LowGasSafeMath for uint256;
 
@@ -30,13 +30,15 @@ abstract contract V2SwapRouter is IV2SwapRouter, ImmutableState, PeripheryPaymen
             // scope to avoid stack too deep errors
             {
                 (uint256 reserve0, uint256 reserve1, ) = pair.getReserves();
-                (uint256 reserveInput, uint256 reserveOutput) =
-                    input == token0 ? (reserve0, reserve1) : (reserve1, reserve0);
+                (uint256 reserveInput, uint256 reserveOutput) = input == token0
+                    ? (reserve0, reserve1)
+                    : (reserve1, reserve0);
                 amountInput = IERC20(input).balanceOf(address(pair)).sub(reserveInput);
                 amountOutput = SmartRouterHelper.getAmountOut(amountInput, reserveInput, reserveOutput);
             }
-            (uint256 amount0Out, uint256 amount1Out) =
-                input == token0 ? (uint256(0), amountOutput) : (amountOutput, uint256(0));
+            (uint256 amount0Out, uint256 amount1Out) = input == token0
+                ? (uint256(0), amountOutput)
+                : (amountOutput, uint256(0));
             address to = i < path.length - 2 ? SmartRouterHelper.pairFor(factoryV2, output, path[i + 2]) : _to;
             pair.swap(amount0Out, amount1Out, to, new bytes(0));
         }

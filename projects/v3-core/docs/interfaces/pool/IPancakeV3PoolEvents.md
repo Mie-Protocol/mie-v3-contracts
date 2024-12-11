@@ -1,6 +1,6 @@
 # Solidity API
 
-## IPancakeV3PoolEvents
+## IMieV3PoolEvents
 
 Contains all events emitted by the pool
 
@@ -16,10 +16,10 @@ _Mint/Burn/Swap cannot be emitted by the pool before Initialize_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| sqrtPriceX96 | uint160 | The initial sqrt price of the pool, as a Q64.96 |
-| tick | int24 | The initial tick of the pool, i.e. log base 1.0001 of the starting price of the pool |
+| Name         | Type    | Description                                                                          |
+| ------------ | ------- | ------------------------------------------------------------------------------------ |
+| sqrtPriceX96 | uint160 | The initial sqrt price of the pool, as a Q64.96                                      |
+| tick         | int24   | The initial tick of the pool, i.e. log base 1.0001 of the starting price of the pool |
 
 ### Mint
 
@@ -31,15 +31,15 @@ Emitted when liquidity is minted for a given position
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| sender | address | The address that minted the liquidity |
-| owner | address | The owner of the position and recipient of any minted liquidity |
-| tickLower | int24 | The lower tick of the position |
-| tickUpper | int24 | The upper tick of the position |
-| amount | uint128 | The amount of liquidity minted to the position range |
-| amount0 | uint256 | How much token0 was required for the minted liquidity |
-| amount1 | uint256 | How much token1 was required for the minted liquidity |
+| Name      | Type    | Description                                                     |
+| --------- | ------- | --------------------------------------------------------------- |
+| sender    | address | The address that minted the liquidity                           |
+| owner     | address | The owner of the position and recipient of any minted liquidity |
+| tickLower | int24   | The lower tick of the position                                  |
+| tickUpper | int24   | The upper tick of the position                                  |
+| amount    | uint128 | The amount of liquidity minted to the position range            |
+| amount0   | uint256 | How much token0 was required for the minted liquidity           |
+| amount1   | uint256 | How much token1 was required for the minted liquidity           |
 
 ### Collect
 
@@ -53,14 +53,14 @@ _Collect events may be emitted with zero amount0 and amount1 when the caller cho
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| owner | address | The owner of the position for which fees are collected |
-| recipient | address |  |
-| tickLower | int24 | The lower tick of the position |
-| tickUpper | int24 | The upper tick of the position |
-| amount0 | uint128 | The amount of token0 fees collected |
-| amount1 | uint128 | The amount of token1 fees collected |
+| Name      | Type    | Description                                            |
+| --------- | ------- | ------------------------------------------------------ |
+| owner     | address | The owner of the position for which fees are collected |
+| recipient | address |                                                        |
+| tickLower | int24   | The lower tick of the position                         |
+| tickUpper | int24   | The upper tick of the position                         |
+| amount0   | uint128 | The amount of token0 fees collected                    |
+| amount1   | uint128 | The amount of token1 fees collected                    |
 
 ### Burn
 
@@ -74,14 +74,14 @@ _Does not withdraw any fees earned by the liquidity position, which must be with
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| owner | address | The owner of the position for which liquidity is removed |
-| tickLower | int24 | The lower tick of the position |
-| tickUpper | int24 | The upper tick of the position |
-| amount | uint128 | The amount of liquidity to remove |
-| amount0 | uint256 | The amount of token0 withdrawn |
-| amount1 | uint256 | The amount of token1 withdrawn |
+| Name      | Type    | Description                                              |
+| --------- | ------- | -------------------------------------------------------- |
+| owner     | address | The owner of the position for which liquidity is removed |
+| tickLower | int24   | The lower tick of the position                           |
+| tickUpper | int24   | The upper tick of the position                           |
+| amount    | uint128 | The amount of liquidity to remove                        |
+| amount0   | uint256 | The amount of token0 withdrawn                           |
+| amount1   | uint256 | The amount of token1 withdrawn                           |
 
 ### Swap
 
@@ -93,17 +93,17 @@ Emitted by the pool for any swaps between token0 and token1
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| sender | address | The address that initiated the swap call, and that received the callback |
-| recipient | address | The address that received the output of the swap |
-| amount0 | int256 | The delta of the token0 balance of the pool |
-| amount1 | int256 | The delta of the token1 balance of the pool |
-| sqrtPriceX96 | uint160 | The sqrt(price) of the pool after the swap, as a Q64.96 |
-| liquidity | uint128 | The liquidity of the pool after the swap |
-| tick | int24 | The log base 1.0001 of price of the pool after the swap |
-| protocolFeesToken0 | uint128 | The protocol fee of token0 in the swap |
-| protocolFeesToken1 | uint128 | The protocol fee of token1 in the swap |
+| Name               | Type    | Description                                                              |
+| ------------------ | ------- | ------------------------------------------------------------------------ |
+| sender             | address | The address that initiated the swap call, and that received the callback |
+| recipient          | address | The address that received the output of the swap                         |
+| amount0            | int256  | The delta of the token0 balance of the pool                              |
+| amount1            | int256  | The delta of the token1 balance of the pool                              |
+| sqrtPriceX96       | uint160 | The sqrt(price) of the pool after the swap, as a Q64.96                  |
+| liquidity          | uint128 | The liquidity of the pool after the swap                                 |
+| tick               | int24   | The log base 1.0001 of price of the pool after the swap                  |
+| protocolFeesToken0 | uint128 | The protocol fee of token0 in the swap                                   |
+| protocolFeesToken1 | uint128 | The protocol fee of token1 in the swap                                   |
 
 ### Flash
 
@@ -115,14 +115,14 @@ Emitted by the pool for any flashes of token0/token1
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| sender | address | The address that initiated the swap call, and that received the callback |
-| recipient | address | The address that received the tokens from flash |
-| amount0 | uint256 | The amount of token0 that was flashed |
-| amount1 | uint256 | The amount of token1 that was flashed |
-| paid0 | uint256 | The amount of token0 paid for the flash, which can exceed the amount0 plus the fee |
-| paid1 | uint256 | The amount of token1 paid for the flash, which can exceed the amount1 plus the fee |
+| Name      | Type    | Description                                                                        |
+| --------- | ------- | ---------------------------------------------------------------------------------- |
+| sender    | address | The address that initiated the swap call, and that received the callback           |
+| recipient | address | The address that received the tokens from flash                                    |
+| amount0   | uint256 | The amount of token0 that was flashed                                              |
+| amount1   | uint256 | The amount of token1 that was flashed                                              |
+| paid0     | uint256 | The amount of token0 paid for the flash, which can exceed the amount0 plus the fee |
+| paid1     | uint256 | The amount of token1 paid for the flash, which can exceed the amount1 plus the fee |
 
 ### IncreaseObservationCardinalityNext
 
@@ -137,10 +137,10 @@ just before a mint/swap/burn._
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name                          | Type   | Description                                            |
+| ----------------------------- | ------ | ------------------------------------------------------ |
 | observationCardinalityNextOld | uint16 | The previous value of the next observation cardinality |
-| observationCardinalityNextNew | uint16 | The updated value of the next observation cardinality |
+| observationCardinalityNextNew | uint16 | The updated value of the next observation cardinality  |
 
 ### SetFeeProtocol
 
@@ -152,12 +152,12 @@ Emitted when the protocol fee is changed by the pool
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name            | Type   | Description                                   |
+| --------------- | ------ | --------------------------------------------- |
 | feeProtocol0Old | uint32 | The previous value of the token0 protocol fee |
 | feeProtocol1Old | uint32 | The previous value of the token1 protocol fee |
-| feeProtocol0New | uint32 | The updated value of the token0 protocol fee |
-| feeProtocol1New | uint32 | The updated value of the token1 protocol fee |
+| feeProtocol0New | uint32 | The updated value of the token0 protocol fee  |
+| feeProtocol1New | uint32 | The updated value of the token1 protocol fee  |
 
 ### CollectProtocol
 
@@ -169,10 +169,9 @@ Emitted when the collected protocol fees are withdrawn by the factory owner
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| sender | address | The address that collects the protocol fees |
+| Name      | Type    | Description                                           |
+| --------- | ------- | ----------------------------------------------------- |
+| sender    | address | The address that collects the protocol fees           |
 | recipient | address | The address that receives the collected protocol fees |
-| amount0 | uint128 | The amount of token0 protocol fees that is withdrawn |
-| amount1 | uint128 |  |
-
+| amount0   | uint128 | The amount of token0 protocol fees that is withdrawn  |
+| amount1   | uint128 |                                                       |

@@ -12,9 +12,9 @@ function deployer() external view returns (address)
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| [0] | address | Returns the address of the PancakeSwap V3 deployer |
+| Name | Type    | Description                                    |
+| ---- | ------- | ---------------------------------------------- |
+| [0]  | address | Returns the address of the MieSwap V3 deployer |
 
 ### factory
 
@@ -24,9 +24,9 @@ function factory() external view returns (address)
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| [0] | address | Returns the address of the PancakeSwap V3 factory |
+| Name | Type    | Description                                   |
+| ---- | ------- | --------------------------------------------- |
+| [0]  | address | Returns the address of the MieSwap V3 factory |
 
 ### WETH9
 
@@ -36,7 +36,6 @@ function WETH9() external view returns (address)
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| [0] | address | Returns the address of WETH9 |
-
+| Name | Type    | Description                  |
+| ---- | ------- | ---------------------------- |
+| [0]  | address | Returns the address of WETH9 |

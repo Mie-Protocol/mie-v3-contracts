@@ -1,6 +1,6 @@
 # Solidity API
 
-## TestPancakeV3ReentrantCallee
+## TestMieV3ReentrantCallee
 
 ### swapToReenter
 
@@ -8,9 +8,8 @@
 function swapToReenter(address pool) external
 ```
 
-### pancakeV3SwapCallback
+### MieV3SwapCallback
 
 ```solidity
-function pancakeV3SwapCallback(int256, int256, bytes) external
+function MieV3SwapCallback(int256, int256, bytes) external
 ```
-

@@ -1,6 +1,6 @@
 # Solidity API
 
-## PancakeV3Pool
+## MieV3Pool
 
 ### factory
 
@@ -8,7 +8,7 @@
 address factory
 ```
 
-The contract that deployed the pool, which must adhere to the IPancakeV3Factory interface
+The contract that deployed the pool, which must adhere to the IMieV3Factory interface
 
 #### Return Values
 
@@ -116,7 +116,7 @@ struct Slot0 {
 ### slot0
 
 ```solidity
-struct PancakeV3Pool.Slot0 slot0
+struct MieV3Pool.Slot0 slot0
 ```
 
 The 0th storage slot in the pool stores many values, and is exposed as a single method to save gas
@@ -159,7 +159,7 @@ struct ProtocolFees {
 ### protocolFees
 
 ```solidity
-struct PancakeV3Pool.ProtocolFees protocolFees
+struct MieV3Pool.ProtocolFees protocolFees
 ```
 
 The amounts of token0 and token1 that are owed to the protocol
@@ -244,7 +244,7 @@ ago, rather than at a specific index in the array._
 ### lmPool
 
 ```solidity
-contract IPancakeV3LmPool lmPool
+contract IMieV3LmPool lmPool
 ```
 
 ### SetLmPoolEvent
@@ -269,7 +269,7 @@ we use balance checks to determine the payment status of interactions such as mi
 modifier onlyFactoryOwner()
 ```
 
-_Prevents calling a function from anyone except the address returned by IPancakeV3Factory#owner()_
+_Prevents calling a function from anyone except the address returned by IMieV3Factory#owner()_
 
 ### constructor
 
@@ -277,13 +277,13 @@ _Prevents calling a function from anyone except the address returned by IPancake
 constructor() public
 ```
 
-### _blockTimestamp
+### \_blockTimestamp
 
 ```solidity
 function _blockTimestamp() internal view virtual returns (uint32)
 ```
 
-_Returns the block timestamp truncated to 32 bits, i.e. mod 2**32. This method is overridden in tests._
+_Returns the block timestamp truncated to 32 bits, i.e. mod 2\*\*32. This method is overridden in tests._
 
 ### snapshotCumulativesInside
 
@@ -299,18 +299,18 @@ snapshot is taken and the second snapshot is taken._
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name      | Type  | Description                 |
+| --------- | ----- | --------------------------- |
 | tickLower | int24 | The lower tick of the range |
 | tickUpper | int24 | The upper tick of the range |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| tickCumulativeInside | int56 | The snapshot of the tick accumulator for the range |
+| Name                          | Type    | Description                                         |
+| ----------------------------- | ------- | --------------------------------------------------- |
+| tickCumulativeInside          | int56   | The snapshot of the tick accumulator for the range  |
 | secondsPerLiquidityInsideX128 | uint160 | The snapshot of seconds per liquidity for the range |
-| secondsInside | uint32 | The snapshot of seconds per liquidity for the range |
+| secondsInside                 | uint32  | The snapshot of seconds per liquidity for the range |
 
 ### observe
 
@@ -328,15 +328,15 @@ log base sqrt(1.0001) of token1 / token0. The TickMath library can be used to go
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name        | Type     | Description                                                                   |
+| ----------- | -------- | ----------------------------------------------------------------------------- |
 | secondsAgos | uint32[] | From how long ago each cumulative tick and liquidity value should be returned |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| tickCumulatives | int56[] | Cumulative tick values as of each `secondsAgos` from the current block timestamp |
+| Name                               | Type      | Description                                                                                               |
+| ---------------------------------- | --------- | --------------------------------------------------------------------------------------------------------- |
+| tickCumulatives                    | int56[]   | Cumulative tick values as of each `secondsAgos` from the current block timestamp                          |
 | secondsPerLiquidityCumulativeX128s | uint160[] | Cumulative seconds per liquidity-in-range value as of each `secondsAgos` from the current block timestamp |
 
 ### increaseObservationCardinalityNext
@@ -352,8 +352,8 @@ the input observationCardinalityNext._
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name                       | Type   | Description                                                      |
+| -------------------------- | ------ | ---------------------------------------------------------------- |
 | observationCardinalityNext | uint16 | The desired minimum number of observations for the pool to store |
 
 ### initialize
@@ -368,8 +368,8 @@ _not locked because it initializes unlocked_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name         | Type    | Description                                    |
+| ------------ | ------- | ---------------------------------------------- |
 | sqrtPriceX96 | uint160 | the initial sqrt price of the pool as a Q64.96 |
 
 ### ModifyPositionParams
@@ -391,22 +391,22 @@ function mint(address recipient, int24 tickLower, int24 tickUpper, uint128 amoun
 
 Adds liquidity for the given recipient/tickLower/tickUpper position
 
-_noDelegateCall is applied indirectly via _modifyPosition_
+_noDelegateCall is applied indirectly via \_modifyPosition_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| recipient | address | The address for which the liquidity will be created |
-| tickLower | int24 | The lower tick of the position in which to add liquidity |
-| tickUpper | int24 | The upper tick of the position in which to add liquidity |
-| amount | uint128 | The amount of liquidity to mint |
-| data | bytes | Any data that should be passed through to the callback |
+| Name      | Type    | Description                                              |
+| --------- | ------- | -------------------------------------------------------- |
+| recipient | address | The address for which the liquidity will be created      |
+| tickLower | int24   | The lower tick of the position in which to add liquidity |
+| tickUpper | int24   | The upper tick of the position in which to add liquidity |
+| amount    | uint128 | The amount of liquidity to mint                          |
+| data      | bytes   | Any data that should be passed through to the callback   |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name    | Type    | Description                                                                                                 |
+| ------- | ------- | ----------------------------------------------------------------------------------------------------------- |
 | amount0 | uint256 | The amount of token0 that was paid to mint the given amount of liquidity. Matches the value in the callback |
 | amount1 | uint256 | The amount of token1 that was paid to mint the given amount of liquidity. Matches the value in the callback |
 
@@ -425,18 +425,18 @@ actual tokens owed, e.g. type(uint128).max. Tokens owed may be from accumulated 
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| recipient | address | The address which should receive the fees collected |
-| tickLower | int24 | The lower tick of the position for which to collect fees |
-| tickUpper | int24 | The upper tick of the position for which to collect fees |
-| amount0Requested | uint128 | How much token0 should be withdrawn from the fees owed |
-| amount1Requested | uint128 | How much token1 should be withdrawn from the fees owed |
+| Name             | Type    | Description                                              |
+| ---------------- | ------- | -------------------------------------------------------- |
+| recipient        | address | The address which should receive the fees collected      |
+| tickLower        | int24   | The lower tick of the position for which to collect fees |
+| tickUpper        | int24   | The upper tick of the position for which to collect fees |
+| amount0Requested | uint128 | How much token0 should be withdrawn from the fees owed   |
+| amount1Requested | uint128 | How much token1 should be withdrawn from the fees owed   |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name    | Type    | Description                            |
+| ------- | ------- | -------------------------------------- |
 | amount0 | uint128 | The amount of fees collected in token0 |
 | amount1 | uint128 | The amount of fees collected in token1 |
 
@@ -448,20 +448,20 @@ function burn(int24 tickLower, int24 tickUpper, uint128 amount) external returns
 
 Burn liquidity from the sender and account tokens owed for the liquidity to the position
 
-_noDelegateCall is applied indirectly via _modifyPosition_
+_noDelegateCall is applied indirectly via \_modifyPosition_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| tickLower | int24 | The lower tick of the position for which to burn liquidity |
-| tickUpper | int24 | The upper tick of the position for which to burn liquidity |
-| amount | uint128 | How much liquidity to burn |
+| Name      | Type    | Description                                                |
+| --------- | ------- | ---------------------------------------------------------- |
+| tickLower | int24   | The lower tick of the position for which to burn liquidity |
+| tickUpper | int24   | The upper tick of the position for which to burn liquidity |
+| amount    | uint128 | How much liquidity to burn                                 |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name    | Type    | Description                                |
+| ------- | ------- | ------------------------------------------ |
 | amount0 | uint256 | The amount of token0 sent to the recipient |
 | amount1 | uint256 | The amount of token1 sent to the recipient |
 
@@ -514,22 +514,22 @@ function swap(address recipient, bool zeroForOne, int256 amountSpecified, uint16
 
 Swap token0 for token1, or token1 for token0
 
-_The caller of this method receives a callback in the form of IPancakeV3SwapCallback#pancakeV3SwapCallback_
+_The caller of this method receives a callback in the form of IMieV3SwapCallback#MieV3SwapCallback_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| recipient | address | The address to receive the output of the swap |
-| zeroForOne | bool | The direction of the swap, true for token0 to token1, false for token1 to token0 |
-| amountSpecified | int256 | The amount of the swap, which implicitly configures the swap as exact input (positive), or exact output (negative) |
+| Name              | Type    | Description                                                                                                                                                                        |
+| ----------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| recipient         | address | The address to receive the output of the swap                                                                                                                                      |
+| zeroForOne        | bool    | The direction of the swap, true for token0 to token1, false for token1 to token0                                                                                                   |
+| amountSpecified   | int256  | The amount of the swap, which implicitly configures the swap as exact input (positive), or exact output (negative)                                                                 |
 | sqrtPriceLimitX96 | uint160 | The Q64.96 sqrt price limit. If zero for one, the price cannot be less than this value after the swap. If one for zero, the price cannot be greater than this value after the swap |
-| data | bytes | Any data to be passed through to the callback |
+| data              | bytes   | Any data to be passed through to the callback                                                                                                                                      |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name    | Type   | Description                                                                                |
+| ------- | ------ | ------------------------------------------------------------------------------------------ |
 | amount0 | int256 | The delta of the balance of token0 of the pool, exact when negative, minimum when positive |
 | amount1 | int256 | The delta of the balance of token1 of the pool, exact when negative, minimum when positive |
 
@@ -541,18 +541,18 @@ function flash(address recipient, uint256 amount0, uint256 amount1, bytes data) 
 
 Receive token0 and/or token1 and pay it back, plus a fee, in the callback
 
-_The caller of this method receives a callback in the form of IPancakeV3FlashCallback#pancakeV3FlashCallback
+_The caller of this method receives a callback in the form of IMieV3FlashCallback#MieV3FlashCallback
 Can be used to donate underlying tokens pro-rata to currently in-range liquidity providers by calling
 with 0 amount{0,1} and sending the donation amount(s) from the callback_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name      | Type    | Description                                                  |
+| --------- | ------- | ------------------------------------------------------------ |
 | recipient | address | The address which will receive the token0 and token1 amounts |
-| amount0 | uint256 | The amount of token0 to send |
-| amount1 | uint256 | The amount of token1 to send |
-| data | bytes | Any data to be passed through to the callback |
+| amount0   | uint256 | The amount of token0 to send                                 |
+| amount1   | uint256 | The amount of token1 to send                                 |
+| data      | bytes   | Any data to be passed through to the callback                |
 
 ### setFeeProtocol
 
@@ -564,8 +564,8 @@ Set the denominator of the protocol's % share of the fees
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name         | Type   | Description                             |
+| ------------ | ------ | --------------------------------------- |
 | feeProtocol0 | uint32 | new protocol fee for token0 of the pool |
 | feeProtocol1 | uint32 | new protocol fee for token1 of the pool |
 
@@ -579,22 +579,21 @@ Collect the protocol fee accrued to the pool
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| recipient | address | The address to which collected protocol fees should be sent |
+| Name             | Type    | Description                                                                   |
+| ---------------- | ------- | ----------------------------------------------------------------------------- |
+| recipient        | address | The address to which collected protocol fees should be sent                   |
 | amount0Requested | uint128 | The maximum amount of token0 to send, can be 0 to collect fees in only token1 |
 | amount1Requested | uint128 | The maximum amount of token1 to send, can be 0 to collect fees in only token0 |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name    | Type    | Description                          |
+| ------- | ------- | ------------------------------------ |
 | amount0 | uint128 | The protocol fee collected in token0 |
 | amount1 | uint128 | The protocol fee collected in token1 |
 
 ### setLmPool
 
 ```solidity
-function setLmPool(contract IPancakeV3LmPool _lmPool) external
+function setLmPool(contract IMieV3LmPool _lmPool) external
 ```
-

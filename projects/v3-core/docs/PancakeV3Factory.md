@@ -1,8 +1,8 @@
 # Solidity API
 
-## PancakeV3Factory
+## MieV3Factory
 
-Deploys PancakeSwap V3 pools and manages ownership and control over pool protocol fees
+Deploys MieSwap V3 pools and manages ownership and control over pool protocol fees
 
 ### owner
 
@@ -70,7 +70,7 @@ _tokenA and tokenB may be passed in either token0/token1 or token1/token0 order_
 ### feeAmountTickSpacingExtraInfo
 
 ```solidity
-mapping(uint24 => struct IPancakeV3Factory.TickSpacingExtraInfo) feeAmountTickSpacingExtraInfo
+mapping(uint24 => struct IMieV3Factory.TickSpacingExtraInfo) feeAmountTickSpacingExtraInfo
 ```
 
 Returns the tick spacing extra info
@@ -107,16 +107,16 @@ are invalid._
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| tokenA | address | One of the two tokens in the desired pool |
+| Name   | Type    | Description                                     |
+| ------ | ------- | ----------------------------------------------- |
+| tokenA | address | One of the two tokens in the desired pool       |
 | tokenB | address | The other of the two tokens in the desired pool |
-| fee | uint24 | The desired fee for the pool |
+| fee    | uint24  | The desired fee for the pool                    |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name | Type    | Description                           |
+| ---- | ------- | ------------------------------------- |
 | pool | address | The address of the newly created pool |
 
 ### setOwner
@@ -131,9 +131,9 @@ _Must be called by the current owner_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| _owner | address | The new owner of the factory |
+| Name    | Type    | Description                  |
+| ------- | ------- | ---------------------------- |
+| \_owner | address | The new owner of the factory |
 
 ### enableFeeAmount
 
@@ -147,10 +147,10 @@ _Fee amounts may never be removed once enabled_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| fee | uint24 | The fee amount to enable, denominated in hundredths of a bip (i.e. 1e-6) |
-| tickSpacing | int24 | The spacing between ticks to be enforced for all pools created with the given fee amount |
+| Name        | Type   | Description                                                                              |
+| ----------- | ------ | ---------------------------------------------------------------------------------------- |
+| fee         | uint24 | The fee amount to enable, denominated in hundredths of a bip (i.e. 1e-6)                 |
+| tickSpacing | int24  | The spacing between ticks to be enforced for all pools created with the given fee amount |
 
 ### setWhiteListAddress
 
@@ -164,10 +164,10 @@ _Address can be updated by owner with boolean value false_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| user | address | The user address that add into white list |
-| verified | bool |  |
+| Name     | Type    | Description                               |
+| -------- | ------- | ----------------------------------------- |
+| user     | address | The user address that add into white list |
+| verified | bool    |                                           |
 
 ### setFeeAmountExtraInfo
 
@@ -181,9 +181,8 @@ _Fee amounts can be updated by owner with extra info_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| fee | uint24 |  |
-| whitelistRequested | bool | The flag whether should be created by owner only |
-| enabled | bool | The flag is the fee is enabled or not |
-
+| Name               | Type   | Description                                      |
+| ------------------ | ------ | ------------------------------------------------ |
+| fee                | uint24 |                                                  |
+| whitelistRequested | bool   | The flag whether should be created by owner only |
+| enabled            | bool   | The flag is the fee is enabled or not            |

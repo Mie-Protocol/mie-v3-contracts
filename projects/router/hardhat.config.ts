@@ -51,6 +51,11 @@ const eth: NetworkUserConfig = {
   chainId: 1,
   accounts: [process.env.KEY_ETH!],
 }
+const swanSaturn: NetworkUserConfig = {
+  url: 'https://saturn-rpc.swanchain.io/',
+  chainId: 2024,
+  accounts: [process.env.KEY_SATURN!],
+}
 
 const config: HardhatUserConfig = {
   defaultNetwork: 'hardhat',
@@ -64,12 +69,13 @@ const config: HardhatUserConfig = {
     ...(process.env.KEY_MAINNET && { bscMainnet }),
     ...(process.env.KEY_GOERLI && { goerli }),
     ...(process.env.KEY_ETH && { eth }),
+    ...(process.env.KEY_SATURN && { swanSaturn }),
     // goerli: goerli,
     // mainnet: bscMainnet,
   },
-  etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY || '',
-  },
+  // etherscan: {
+  //   apiKey: process.env.ETHERSCAN_API_KEY || '',
+  // },
   solidity: {
     compilers: [
       {
@@ -119,19 +125,19 @@ const config: HardhatUserConfig = {
       },
     ],
     overrides: {
-      '@pancakeswap/v3-core/contracts/libraries/FullMath.sol': {
+      '@Mieswap/v3-core/contracts/libraries/FullMath.sol': {
         version: '0.7.6',
         settings: {},
       },
-      '@pancakeswap/v3-core/contracts/libraries/TickBitmap.sol': {
+      '@Mieswap/v3-core/contracts/libraries/TickBitmap.sol': {
         version: '0.7.6',
         settings: {},
       },
-      '@pancakeswap/v3-core/contracts/libraries/TickMath.sol': {
+      '@Mieswap/v3-core/contracts/libraries/TickMath.sol': {
         version: '0.7.6',
         settings: {},
       },
-      '@pancakeswap/v3-periphery/contracts/libraries/PoolAddress.sol': {
+      '@Mieswap/v3-periphery/contracts/libraries/PoolAddress.sol': {
         version: '0.7.6',
         settings: {},
       },

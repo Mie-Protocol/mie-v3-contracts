@@ -1,5 +1,4 @@
-# Pancake V3
-
+# Mie V3
 
 ## Deployments
 

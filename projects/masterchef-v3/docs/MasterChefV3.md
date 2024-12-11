@@ -7,7 +7,7 @@
 ```solidity
 struct PoolInfo {
   uint256 allocPoint;
-  contract IPancakeV3Pool v3Pool;
+  contract IMieV3Pool v3Pool;
   address token0;
   address token1;
   uint24 fee;
@@ -246,10 +246,10 @@ error NotOwnerOrOperator()
 error NoBalance()
 ```
 
-### NotPancakeNFT
+### NotMieNFT
 
 ```solidity
-error NotPancakeNFT()
+error NotMieNFT()
 ```
 
 ### InvalidNFT
@@ -327,7 +327,7 @@ event Init()
 ### AddPool
 
 ```solidity
-event AddPool(uint256 pid, uint256 allocPoint, contract IPancakeV3Pool v3Pool, contract ILMPool lmPool)
+event AddPool(uint256 pid, uint256 allocPoint, contract IMieV3Pool v3Pool, contract ILMPool lmPool)
 ```
 
 ### SetPool
@@ -442,11 +442,11 @@ constructor(contract IERC20 _CAKE, contract INonfungiblePositionManager _nonfung
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| _CAKE | contract IERC20 | The CAKE token contract address. |
-| _nonfungiblePositionManager | contract INonfungiblePositionManager | the NFT position manager contract address. |
-| _WETH | address |  |
+| Name                         | Type                                 | Description                                |
+| ---------------------------- | ------------------------------------ | ------------------------------------------ |
+| \_CAKE                       | contract IERC20                      | The CAKE token contract address.           |
+| \_nonfungiblePositionManager | contract INonfungiblePositionManager | the NFT position manager contract address. |
+| \_WETH                       | address                              |                                            |
 
 ### getLatestPeriodInfoByPid
 
@@ -458,9 +458,9 @@ Returns the cake per second , period end time.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| _pid | uint256 | The pool pid. |
+| Name  | Type    | Description   |
+| ----- | ------- | ------------- |
+| \_pid | uint256 | The pool pid. |
 
 ### getLatestPeriodInfo
 
@@ -472,9 +472,9 @@ Returns the cake per second , period end time. This is for liquidity mining pool
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| _v3Pool | address | Address of the V3 pool. |
+| Name     | Type    | Description             |
+| -------- | ------- | ----------------------- |
+| \_v3Pool | address | Address of the V3 pool. |
 
 ### pendingCake
 
@@ -488,9 +488,9 @@ _The pending cake amount is based on the last state in LMPool. The actual amount
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| _tokenId | uint256 | Token Id of NFT. |
+| Name      | Type    | Description      |
+| --------- | ------- | ---------------- |
+| \_tokenId | uint256 | Token Id of NFT. |
 
 ### setEmergency
 
@@ -515,7 +515,7 @@ function setLMPoolDeployer(contract ILMPoolDeployer _LMPoolDeployer) external
 ### add
 
 ```solidity
-function add(uint256 _allocPoint, contract IPancakeV3Pool _v3Pool, bool _withUpdate) external
+function add(uint256 _allocPoint, contract IMieV3Pool _v3Pool, bool _withUpdate) external
 ```
 
 Add a new pool. Can only be called by the owner.
@@ -523,11 +523,11 @@ One v3 pool can only create one pool.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| _allocPoint | uint256 | Number of allocation points for the new pool. |
-| _v3Pool | contract IPancakeV3Pool | Address of the V3 pool. |
-| _withUpdate | bool | Whether call "massUpdatePools" operation. |
+| Name         | Type                | Description                                   |
+| ------------ | ------------------- | --------------------------------------------- |
+| \_allocPoint | uint256             | Number of allocation points for the new pool. |
+| \_v3Pool     | contract IMieV3Pool | Address of the V3 pool.                       |
+| \_withUpdate | bool                | Whether call "massUpdatePools" operation.     |
 
 ### set
 
@@ -539,11 +539,11 @@ Update the given pool's CAKE allocation point. Can only be called by the owner.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| _pid | uint256 | The id of the pool. See `poolInfo`. |
-| _allocPoint | uint256 | New number of allocation points for the pool. |
-| _withUpdate | bool | Whether call "massUpdatePools" operation. |
+| Name         | Type    | Description                                   |
+| ------------ | ------- | --------------------------------------------- |
+| \_pid        | uint256 | The id of the pool. See `poolInfo`.           |
+| \_allocPoint | uint256 | New number of allocation points for the pool. |
+| \_withUpdate | bool    | Whether call "massUpdatePools" operation.     |
 
 ### DepositCache
 
@@ -576,10 +576,10 @@ harvest cake from pool.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| _tokenId | uint256 | Token Id of NFT. |
-| _to | address | Address to. |
+| Name      | Type    | Description      |
+| --------- | ------- | ---------------- |
+| \_tokenId | uint256 | Token Id of NFT. |
+| \_to      | address | Address to.      |
 
 ### harvestOperation
 
@@ -597,10 +597,10 @@ Withdraw LP tokens from pool.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| _tokenId | uint256 | Token Id of NFT to deposit. |
-| _to | address | Address to which NFT token to withdraw. |
+| Name      | Type    | Description                             |
+| --------- | ------- | --------------------------------------- |
+| \_tokenId | uint256 | Token Id of NFT to deposit.             |
+| \_to      | address | Address to which NFT token to withdraw. |
 
 ### updateLiquidity
 
@@ -612,9 +612,9 @@ Update liquidity for the NFT position.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| _tokenId | uint256 | Token Id of NFT to update. |
+| Name      | Type    | Description                |
+| --------- | ------- | -------------------------- |
+| \_tokenId | uint256 | Token Id of NFT to update. |
 
 ### updateBoostMultiplier
 
@@ -626,10 +626,10 @@ Update farm boost multiplier for the NFT position.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| _tokenId | uint256 | Token Id of NFT to update. |
-| _newMultiplier | uint256 | New boost multiplier. |
+| Name            | Type    | Description                |
+| --------------- | ------- | -------------------------- |
+| \_tokenId       | uint256 | Token Id of NFT to update. |
+| \_newMultiplier | uint256 | New boost multiplier.      |
 
 ### updateLiquidityOperation
 
@@ -647,17 +647,17 @@ Increases the amount of liquidity in a position, with tokens paid by the `msg.se
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name   | Type                                                             | Description                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| ------ | ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | params | struct INonfungiblePositionManagerStruct.IncreaseLiquidityParams | tokenId The ID of the token for which liquidity is being increased, amount0Desired The desired amount of token0 to be spent, amount1Desired The desired amount of token1 to be spent, amount0Min The minimum amount of token0 to spend, which serves as a slippage check, amount1Min The minimum amount of token1 to spend, which serves as a slippage check, deadline The time by which the transaction must be included to effect the change |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name      | Type    | Description                                          |
+| --------- | ------- | ---------------------------------------------------- |
 | liquidity | uint128 | The new liquidity amount as a result of the increase |
-| amount0 | uint256 | The amount of token0 to acheive resulting liquidity |
-| amount1 | uint256 | The amount of token1 to acheive resulting liquidity |
+| amount0   | uint256 | The amount of token0 to acheive resulting liquidity  |
+| amount1   | uint256 | The amount of token1 to acheive resulting liquidity  |
 
 ### pay
 
@@ -669,10 +669,10 @@ Pay.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| _token | address | The token to pay |
-| _amount | uint256 | The amount to pay |
+| Name     | Type    | Description       |
+| -------- | ------- | ----------------- |
+| \_token  | address | The token to pay  |
+| \_amount | uint256 | The amount to pay |
 
 ### refund
 
@@ -684,10 +684,10 @@ Refund.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| _token | address | The token to refund |
-| _amount | uint256 | The amount to refund |
+| Name     | Type    | Description          |
+| -------- | ------- | -------------------- |
+| \_token  | address | The token to refund  |
+| \_amount | uint256 | The amount to refund |
 
 ### decreaseLiquidity
 
@@ -699,14 +699,14 @@ Decreases the amount of liquidity in a position and accounts it to the position
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name   | Type                                                             | Description                                                                                                                                                                                                                                                                                                                                                                                        |
+| ------ | ---------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | params | struct INonfungiblePositionManagerStruct.DecreaseLiquidityParams | tokenId The ID of the token for which liquidity is being decreased, amount The amount by which liquidity will be decreased, amount0Min The minimum amount of token0 that should be accounted for the burned liquidity, amount1Min The minimum amount of token1 that should be accounted for the burned liquidity, deadline The time by which the transaction must be included to effect the change |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name    | Type    | Description                                                  |
+| ------- | ------- | ------------------------------------------------------------ |
 | amount0 | uint256 | The amount of token0 accounted to the position's tokens owed |
 | amount1 | uint256 | The amount of token1 accounted to the position's tokens owed |
 
@@ -724,14 +724,14 @@ amount1Max The maximum amount of token1 to collect_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name   | Type                                                   | Description                                                                                                           |
+| ------ | ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
 | params | struct INonfungiblePositionManagerStruct.CollectParams | tokenId The ID of the NFT for which tokens are being collected, recipient The account that should receive the tokens, |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name    | Type    | Description                            |
+| ------- | ------- | -------------------------------------- |
 | amount0 | uint256 | The amount of fees collected in token0 |
 | amount1 | uint256 | The amount of fees collected in token1 |
 
@@ -753,10 +753,10 @@ Transfer token from MasterChef V3.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| _token | address | The token to transfer. |
-| _to | address | The to address. |
+| Name    | Type    | Description            |
+| ------- | ------- | ---------------------- |
+| \_token | address | The token to transfer. |
+| \_to    | address | The to address.        |
 
 ### unwrapWETH9
 
@@ -770,10 +770,10 @@ _The amountMinimum parameter prevents malicious contracts from stealing WETH9 fr
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name          | Type    | Description                           |
+| ------------- | ------- | ------------------------------------- |
 | amountMinimum | uint256 | The minimum amount of WETH9 to unwrap |
-| recipient | address | The address receiving ETH |
+| recipient     | address | The address receiving ETH             |
 
 ### sweepToken
 
@@ -787,11 +787,11 @@ _The amountMinimum parameter prevents malicious contracts from stealing the toke
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| token | address | The contract address of the token which will be transferred to `recipient` |
-| amountMinimum | uint256 | The minimum amount of token required for a transfer |
-| recipient | address | The destination address of the token |
+| Name          | Type    | Description                                                                |
+| ------------- | ------- | -------------------------------------------------------------------------- |
+| token         | address | The contract address of the token which will be transferred to `recipient` |
+| amountMinimum | uint256 | The minimum amount of token required for a transfer                        |
+| recipient     | address | The destination address of the token                                       |
 
 ### burn
 
@@ -804,9 +804,9 @@ must be collected first.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| _tokenId | uint256 | The ID of the token that is being burned |
+| Name      | Type    | Description                              |
+| --------- | ------- | ---------------------------------------- |
+| \_tokenId | uint256 | The ID of the token that is being burned |
 
 ### upkeep
 
@@ -818,11 +818,11 @@ Upkeep period.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| _amount | uint256 | The amount of cake injected. |
-| _duration | uint256 | The period duration. |
-| _withUpdate | bool | Whether call "massUpdatePools" operation. |
+| Name         | Type    | Description                               |
+| ------------ | ------- | ----------------------------------------- |
+| \_amount     | uint256 | The amount of cake injected.              |
+| \_duration   | uint256 | The period duration.                      |
+| \_withUpdate | bool    | Whether call "massUpdatePools" operation. |
 
 ### massUpdatePools
 
@@ -854,9 +854,9 @@ _Callable by owner_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| _operatorAddress | address | New operator address. |
+| Name              | Type    | Description           |
+| ----------------- | ------- | --------------------- |
+| \_operatorAddress | address | New operator address. |
 
 ### setPeriodDuration
 
@@ -870,9 +870,9 @@ _Callable by owner_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| _periodDuration | uint256 | New period duration. |
+| Name             | Type    | Description          |
+| ---------------- | ------- | -------------------- |
+| \_periodDuration | uint256 | New period duration. |
 
 ### updateFarmBoostContract
 
@@ -884,9 +884,9 @@ Update farm boost contract address.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| _newFarmBoostContract | address | The new farm booster address. |
+| Name                   | Type    | Description                   |
+| ---------------------- | ------- | ----------------------------- |
+| \_newFarmBoostContract | address | The new farm booster address. |
 
 ### safeTransferETH
 
@@ -898,12 +898,12 @@ Transfer ETH in a safe way
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| to | address |  |
-| value | uint256 |  |
+| Name  | Type    | Description |
+| ----- | ------- | ----------- |
+| to    | address |             |
+| value | uint256 |             |
 
-### _safeTransfer
+### \_safeTransfer
 
 ```solidity
 function _safeTransfer(address _to, uint256 _amount) internal
@@ -913,14 +913,13 @@ Safe Transfer CAKE.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| _to | address | The CAKE receiver address. |
-| _amount | uint256 | Transfer CAKE amounts. |
+| Name     | Type    | Description                |
+| -------- | ------- | -------------------------- |
+| \_to     | address | The CAKE receiver address. |
+| \_amount | uint256 | Transfer CAKE amounts.     |
 
 ### receive
 
 ```solidity
 receive() external payable
 ```
-

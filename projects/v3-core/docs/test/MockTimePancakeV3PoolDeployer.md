@@ -1,6 +1,6 @@
 # Solidity API
 
-## MockTimePancakeV3PoolDeployer
+## MockTimeMieV3PoolDeployer
 
 ### Parameters
 
@@ -17,7 +17,7 @@ struct Parameters {
 ### parameters
 
 ```solidity
-struct MockTimePancakeV3PoolDeployer.Parameters parameters
+struct MockTimeMieV3PoolDeployer.Parameters parameters
 ```
 
 Get the parameters to be used in constructing the pool, set transiently during pool creation.
@@ -40,4 +40,3 @@ event PoolDeployed(address pool)
 ```solidity
 function deploy(address factory, address token0, address token1, uint24 fee, int24 tickSpacing) external returns (address pool)
 ```
-

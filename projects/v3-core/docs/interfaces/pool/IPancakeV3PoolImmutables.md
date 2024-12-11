@@ -1,6 +1,6 @@
 # Solidity API
 
-## IPancakeV3PoolImmutables
+## IMieV3PoolImmutables
 
 These parameters are fixed for a pool forever, i.e., the methods will always return the same values
 
@@ -10,13 +10,13 @@ These parameters are fixed for a pool forever, i.e., the methods will always ret
 function factory() external view returns (address)
 ```
 
-The contract that deployed the pool, which must adhere to the IPancakeV3Factory interface
+The contract that deployed the pool, which must adhere to the IMieV3Factory interface
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| [0] | address | The contract address |
+| Name | Type    | Description          |
+| ---- | ------- | -------------------- |
+| [0]  | address | The contract address |
 
 ### token0
 
@@ -28,9 +28,9 @@ The first of the two tokens of the pool, sorted by address
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| [0] | address | The token contract address |
+| Name | Type    | Description                |
+| ---- | ------- | -------------------------- |
+| [0]  | address | The token contract address |
 
 ### token1
 
@@ -42,9 +42,9 @@ The second of the two tokens of the pool, sorted by address
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| [0] | address | The token contract address |
+| Name | Type    | Description                |
+| ---- | ------- | -------------------------- |
+| [0]  | address | The token contract address |
 
 ### fee
 
@@ -56,9 +56,9 @@ The pool's fee in hundredths of a bip, i.e. 1e-6
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| [0] | uint24 | The fee |
+| Name | Type   | Description |
+| ---- | ------ | ----------- |
+| [0]  | uint24 | The fee     |
 
 ### tickSpacing
 
@@ -74,9 +74,9 @@ This value is an int24 to avoid casting even though it is always positive._
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| [0] | int24 | The tick spacing |
+| Name | Type  | Description      |
+| ---- | ----- | ---------------- |
+| [0]  | int24 | The tick spacing |
 
 ### maxLiquidityPerTick
 
@@ -91,7 +91,6 @@ also prevents out-of-range liquidity from being used to prevent adding in-range 
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| [0] | uint128 | The max amount of liquidity per tick |
-
+| Name | Type    | Description                          |
+| ---- | ------- | ------------------------------------ |
+| [0]  | uint128 | The max amount of liquidity per tick |

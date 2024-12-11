@@ -4,7 +4,7 @@ pragma abicoder v2;
 import './Setup.sol';
 import '../../../../../contracts/test/TestERC20.sol';
 import '../../../../../contracts/libraries/TickMath.sol';
-import '../../../../../contracts/PancakeV3Pool.sol';
+import '../../../../../contracts/MieV3Pool.sol';
 import '../../../../../contracts/libraries/Position.sol';
 
 // import 'hardhat/console.sol';
@@ -13,7 +13,7 @@ contract E2E_mint_burn {
     SetupTokens tokens;
     SetupUniswap uniswap;
 
-    PancakeV3Pool pool;
+    MieV3Pool pool;
 
     TestERC20 token0;
     TestERC20 token1;
@@ -75,11 +75,9 @@ contract E2E_mint_burn {
         require(burnAmount > 0);
     }
 
-    function _getRandomPositionIdxAndBurnAmount(uint128 _seed)
-        internal
-        view
-        returns (uint128 positionIdx, uint128 burnAmount)
-    {
+    function _getRandomPositionIdxAndBurnAmount(
+        uint128 _seed
+    ) internal view returns (uint128 positionIdx, uint128 burnAmount) {
         positionIdx = _getRandomPositionIdx(_seed, positions.length);
         burnAmount = _getRandomBurnAmount(_seed, positions[positionIdx].amount);
     }
@@ -283,32 +281,22 @@ contract E2E_mint_burn {
         int24 _poolTickSpacing,
         uint24 _poolTickCount,
         int24 _poolMaxTick
-    )
-        public
-        view
-        returns (
-            int24 tickLower,
-            int24 tickUpper,
-            uint128 amount
-        )
-    {
+    ) public view returns (int24 tickLower, int24 tickUpper, uint128 amount) {
         (tickLower, tickUpper) = forgePosition(_seed, _poolTickSpacing, _poolTickCount, _poolMaxTick);
         amount = _seed;
     }
 
-    function viewBurnRandomPositionIdx(uint128 _seed, uint128 _positionsCount)
-        public
-        view
-        returns (uint128 positionIdx)
-    {
+    function viewBurnRandomPositionIdx(
+        uint128 _seed,
+        uint128 _positionsCount
+    ) public view returns (uint128 positionIdx) {
         positionIdx = _getRandomPositionIdx(_seed, _positionsCount);
     }
 
-    function viewBurnRandomPositionBurnAmount(uint128 _seed, uint128 _positionAmount)
-        public
-        view
-        returns (uint128 burnAmount)
-    {
+    function viewBurnRandomPositionBurnAmount(
+        uint128 _seed,
+        uint128 _positionAmount
+    ) public view returns (uint128 burnAmount) {
         burnAmount = _getRandomBurnAmount(_seed, _positionAmount);
     }
 

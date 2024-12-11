@@ -5,8 +5,8 @@
 Allows getting the expected amount out for a given swap without executing the swap
 Does not support exact output swaps since using the contract balance between exactOut swaps is not supported
 
-_These functions are not gas efficient and should _not_ be called on chain. Instead, optimistically execute
-the swap and check the amounts in the callback._
+_These functions are not gas efficient and should \_not_ be called on chain. Instead, optimistically execute
+the swap and check the amounts in the callback.\_
 
 ### factoryV2
 
@@ -26,33 +26,33 @@ address factoryStable
 constructor(address _deployer, address _factory, address _factoryV2, address _factoryStable, address _WETH9) public
 ```
 
-_Value to bit mask with path fee to determine if V2 or V3 route
-    // max V3 fee:           000011110100001001000000 (24 bits)
-    // mask:       1 << 23 = 100000000000000000000000 = decimal value 8388608
-    uint24 private constant flagBitmask = 8388608;
+\_Value to bit mask with path fee to determine if V2 or V3 route
+// max V3 fee: 000011110100001001000000 (24 bits)
+// mask: 1 << 23 = 100000000000000000000000 = decimal value 8388608
+uint24 private constant flagBitmask = 8388608;
 
 Transient storage variable used to check a safety condition in exact output swaps.
-    uint256 private amountOutCached;_
+uint256 private amountOutCached;\_
 
-### pancakeV3SwapCallback
+### MieV3SwapCallback
 
 ```solidity
-function pancakeV3SwapCallback(int256 amount0Delta, int256 amount1Delta, bytes path) external view
+function MieV3SwapCallback(int256 amount0Delta, int256 amount1Delta, bytes path) external view
 ```
 
-Called to `msg.sender` after executing a swap via IPancakeV3Pool#swap.
+Called to `msg.sender` after executing a swap via IMieV3Pool#swap.
 
 _In the implementation you must pay the pool tokens owed for the swap.
-The caller of this method must be checked to be a PancakeV3Pool deployed by the canonical PancakeV3Factory.
+The caller of this method must be checked to be a MieV3Pool deployed by the canonical MieV3Factory.
 amount0Delta and amount1Delta can both be 0 if no tokens were swapped._
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name         | Type   | Description                                                                                                                                                                             |
+| ------------ | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | amount0Delta | int256 | The amount of token0 that was sent (negative) or must be received (positive) by the pool by the end of the swap. If positive, the callback must send that amount of token0 to the pool. |
 | amount1Delta | int256 | The amount of token1 that was sent (negative) or must be received (positive) by the pool by the end of the swap. If positive, the callback must send that amount of token1 to the pool. |
-| path | bytes |  |
+| path         | bytes  |                                                                                                                                                                                         |
 
 ### quoteExactInputSingleV3
 
@@ -88,9 +88,8 @@ _Get the quote for an exactIn swap between an array of Stable, V2 and/or V3 pool
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| path | bytes |  |
-| flag | uint256[] | 0 for V3, 1 for V2, 2 for 2pool, 3 for 3pool |
-| amountIn | uint256 |  |
-
+| Name     | Type      | Description                                  |
+| -------- | --------- | -------------------------------------------- |
+| path     | bytes     |                                              |
+| flag     | uint256[] | 0 for V3, 1 for V2, 2 for 2pool, 3 for 3pool |
+| amountIn | uint256   |                                              |

@@ -2,7 +2,7 @@
 
 ## PairFlash
 
-An example contract using the PancakeSwap V3 flash function
+An example contract using the MieSwap V3 flash function
 
 ### swapRouter
 
@@ -29,10 +29,10 @@ struct FlashCallbackData {
 }
 ```
 
-### pancakeV3FlashCallback
+### MieV3FlashCallback
 
 ```solidity
-function pancakeV3FlashCallback(uint256 fee0, uint256 fee1, bytes data) external
+function MieV3FlashCallback(uint256 fee0, uint256 fee1, bytes data) external
 ```
 
 implements the callback called from flash
@@ -41,11 +41,11 @@ _fails if the flash is not profitable, meaning the amountOut from the flash is l
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| fee0 | uint256 | The fee from calling flash for token0 |
-| fee1 | uint256 | The fee from calling flash for token1 |
-| data | bytes | The data needed in the callback passed as FlashCallbackData from `initFlash` |
+| Name | Type    | Description                                                                  |
+| ---- | ------- | ---------------------------------------------------------------------------- |
+| fee0 | uint256 | The fee from calling flash for token0                                        |
+| fee1 | uint256 | The fee from calling flash for token1                                        |
+| data | bytes   | The data needed in the callback passed as FlashCallbackData from `initFlash` |
 
 ### FlashParams
 
@@ -67,11 +67,10 @@ struct FlashParams {
 function initFlash(struct PairFlash.FlashParams params) external
 ```
 
-Calls the pools flash function with data needed in `PancakeV3FlashCallback`
+Calls the pools flash function with data needed in `MieV3FlashCallback`
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name   | Type                         | Description                                                                   |
+| ------ | ---------------------------- | ----------------------------------------------------------------------------- |
 | params | struct PairFlash.FlashParams | The parameters necessary for flash and the callback, passed in as FlashParams |
-

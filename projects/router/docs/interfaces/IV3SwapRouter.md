@@ -2,7 +2,7 @@
 
 ## IV3SwapRouter
 
-Functions for swapping tokens via PancakeSwap V3
+Functions for swapping tokens via MieSwap V3
 
 ### ExactInputSingleParams
 
@@ -31,14 +31,14 @@ and swap the entire amount, enabling contracts to send tokens before calling thi
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name   | Type                                        | Description                                                                            |
+| ------ | ------------------------------------------- | -------------------------------------------------------------------------------------- |
 | params | struct IV3SwapRouter.ExactInputSingleParams | The parameters necessary for the swap, encoded as `ExactInputSingleParams` in calldata |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name      | Type    | Description                      |
+| --------- | ------- | -------------------------------- |
 | amountOut | uint256 | The amount of the received token |
 
 ### ExactInputParams
@@ -65,14 +65,14 @@ and swap the entire amount, enabling contracts to send tokens before calling thi
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name   | Type                                  | Description                                                                                |
+| ------ | ------------------------------------- | ------------------------------------------------------------------------------------------ |
 | params | struct IV3SwapRouter.ExactInputParams | The parameters necessary for the multi-hop swap, encoded as `ExactInputParams` in calldata |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name      | Type    | Description                      |
+| --------- | ------- | -------------------------------- |
 | amountOut | uint256 | The amount of the received token |
 
 ### ExactOutputSingleParams
@@ -100,14 +100,14 @@ that may remain in the router after the swap.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name   | Type                                         | Description                                                                             |
+| ------ | -------------------------------------------- | --------------------------------------------------------------------------------------- |
 | params | struct IV3SwapRouter.ExactOutputSingleParams | The parameters necessary for the swap, encoded as `ExactOutputSingleParams` in calldata |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name     | Type    | Description                   |
+| -------- | ------- | ----------------------------- |
 | amountIn | uint256 | The amount of the input token |
 
 ### ExactOutputParams
@@ -132,13 +132,12 @@ that may remain in the router after the swap.
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name   | Type                                   | Description                                                                                 |
+| ------ | -------------------------------------- | ------------------------------------------------------------------------------------------- |
 | params | struct IV3SwapRouter.ExactOutputParams | The parameters necessary for the multi-hop swap, encoded as `ExactOutputParams` in calldata |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name     | Type    | Description                   |
+| -------- | ------- | ----------------------------- |
 | amountIn | uint256 | The amount of the input token |
-

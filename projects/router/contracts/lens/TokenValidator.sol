@@ -3,7 +3,7 @@ pragma solidity =0.7.6;
 pragma abicoder v2;
 
 import '@openzeppelin/contracts/token/ERC20/IERC20.sol';
-import '@pancakeswap/v3-periphery/contracts/base/PeripheryImmutableState.sol';
+import '@Mieswap/v3-periphery/contracts/base/PeripheryImmutableState.sol';
 import '@uniswap/v2-core/contracts/interfaces/IUniswapV2Callee.sol';
 import '@uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol';
 import '../libraries/SmartRouterHelper.sol';
@@ -56,11 +56,7 @@ contract TokenValidator is ITokenValidator, IUniswapV2Callee, ImmutableState {
         return Status.UNKN;
     }
 
-    function _validate(
-        address token,
-        address baseToken,
-        uint256 amountToBorrow
-    ) internal returns (Status) {
+    function _validate(address token, address baseToken, uint256 amountToBorrow) internal returns (Status) {
         if (token == baseToken) {
             return Status.UNKN;
         }
@@ -78,8 +74,9 @@ contract TokenValidator is ITokenValidator, IUniswapV2Callee, ImmutableState {
         address token0Address = abi.decode(returnData, (address));
 
         // Flash loan {amountToBorrow}
-        (uint256 amount0Out, uint256 amount1Out) =
-            token == token0Address ? (amountToBorrow, uint256(0)) : (uint256(0), amountToBorrow);
+        (uint256 amount0Out, uint256 amount1Out) = token == token0Address
+            ? (amountToBorrow, uint256(0))
+            : (uint256(0), amountToBorrow);
 
         uint256 balanceBeforeLoan = IERC20(token).balanceOf(address(this));
 
@@ -130,12 +127,7 @@ contract TokenValidator is ITokenValidator, IUniswapV2Callee, ImmutableState {
         return transferFailed;
     }
 
-    function uniswapV2Call(
-        address,
-        uint256 amount0,
-        uint256,
-        bytes calldata data
-    ) external view override {
+    function uniswapV2Call(address, uint256 amount0, uint256, bytes calldata data) external view override {
         IUniswapV2Pair pair = IUniswapV2Pair(msg.sender);
         (address token0, address token1) = (pair.token0(), pair.token1());
 

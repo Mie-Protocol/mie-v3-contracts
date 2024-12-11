@@ -2,7 +2,7 @@
 
 ## ApproveAndCall
 
-Allows callers to approve the PancakeSwap V3 position manager from this contract,
+Allows callers to approve the MieSwap V3 position manager from this contract,
 for any token, and then make calls into the position manager
 
 ### getApprovalType
@@ -15,16 +15,16 @@ _Lens to be called off-chain to determine which (if any) of the relevant approva
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| token | address | The token to approve |
+| Name   | Type    | Description           |
+| ------ | ------- | --------------------- |
+| token  | address | The token to approve  |
 | amount | uint256 | The amount to approve |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| [0] | enum IApproveAndCall.ApprovalType | The required approval type |
+| Name | Type                              | Description                |
+| ---- | --------------------------------- | -------------------------- |
+| [0]  | enum IApproveAndCall.ApprovalType | The required approval type |
 
 ### approveMax
 
@@ -36,8 +36,8 @@ Approves a token for the maximum possible amount
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name  | Type    | Description          |
+| ----- | ------- | -------------------- |
 | token | address | The token to approve |
 
 ### approveMaxMinusOne
@@ -50,8 +50,8 @@ Approves a token for the maximum possible amount minus one
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name  | Type    | Description          |
+| ----- | ------- | -------------------- |
 | token | address | The token to approve |
 
 ### approveZeroThenMax
@@ -64,8 +64,8 @@ Approves a token for zero, then the maximum possible amount
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name  | Type    | Description          |
+| ----- | ------- | -------------------- |
 | token | address | The token to approve |
 
 ### approveZeroThenMaxMinusOne
@@ -78,8 +78,8 @@ Approves a token for zero, then the maximum possible amount minus one
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name  | Type    | Description          |
+| ----- | ------- | -------------------- |
 | token | address | The token to approve |
 
 ### callPositionManager
@@ -92,14 +92,14 @@ Calls the position manager with arbitrary calldata
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name | Type  | Description                                    |
+| ---- | ----- | ---------------------------------------------- |
 | data | bytes | Calldata to pass along to the position manager |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name   | Type  | Description              |
+| ------ | ----- | ------------------------ |
 | result | bytes | The result from the call |
 
 ### mint
@@ -112,14 +112,14 @@ Calls the position manager's mint function
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name   | Type                              | Description                                    |
+| ------ | --------------------------------- | ---------------------------------------------- |
 | params | struct IApproveAndCall.MintParams | Calldata to pass along to the position manager |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name   | Type  | Description              |
+| ------ | ----- | ------------------------ |
 | result | bytes | The result from the call |
 
 ### increaseLiquidity
@@ -132,13 +132,12 @@ Calls the position manager's increaseLiquidity function
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name   | Type                                           | Description                                    |
+| ------ | ---------------------------------------------- | ---------------------------------------------- |
 | params | struct IApproveAndCall.IncreaseLiquidityParams | Calldata to pass along to the position manager |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name   | Type  | Description              |
+| ------ | ----- | ------------------------ |
 | result | bytes | The result from the call |
-

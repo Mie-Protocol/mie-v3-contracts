@@ -5,22 +5,17 @@ import '../libraries/SafeCast.sol';
 import '../libraries/TickMath.sol';
 
 import '../interfaces/IERC20Minimal.sol';
-import '../interfaces/callback/IPancakeV3SwapCallback.sol';
-import '../interfaces/IPancakeV3Pool.sol';
+import '../interfaces/callback/IMieV3SwapCallback.sol';
+import '../interfaces/IMieV3Pool.sol';
 
-contract TestPancakeV3Router is IPancakeV3SwapCallback {
+contract TestMieV3Router is IMieV3SwapCallback {
     using SafeCast for uint256;
 
     // flash swaps for an exact amount of token0 in the output pool
-    function swapForExact0Multi(
-        address recipient,
-        address poolInput,
-        address poolOutput,
-        uint256 amount0Out
-    ) external {
+    function swapForExact0Multi(address recipient, address poolInput, address poolOutput, uint256 amount0Out) external {
         address[] memory pools = new address[](1);
         pools[0] = poolInput;
-        IPancakeV3Pool(poolOutput).swap(
+        IMieV3Pool(poolOutput).swap(
             recipient,
             false,
             -amount0Out.toInt256(),
@@ -30,15 +25,10 @@ contract TestPancakeV3Router is IPancakeV3SwapCallback {
     }
 
     // flash swaps for an exact amount of token1 in the output pool
-    function swapForExact1Multi(
-        address recipient,
-        address poolInput,
-        address poolOutput,
-        uint256 amount1Out
-    ) external {
+    function swapForExact1Multi(address recipient, address poolInput, address poolOutput, uint256 amount1Out) external {
         address[] memory pools = new address[](1);
         pools[0] = poolInput;
-        IPancakeV3Pool(poolOutput).swap(
+        IMieV3Pool(poolOutput).swap(
             recipient,
             true,
             -amount1Out.toInt256(),
@@ -49,11 +39,7 @@ contract TestPancakeV3Router is IPancakeV3SwapCallback {
 
     event SwapCallback(int256 amount0Delta, int256 amount1Delta);
 
-    function pancakeV3SwapCallback(
-        int256 amount0Delta,
-        int256 amount1Delta,
-        bytes calldata data
-    ) public override {
+    function MieV3SwapCallback(int256 amount0Delta, int256 amount1Delta, bytes calldata data) public override {
         emit SwapCallback(amount0Delta, amount1Delta);
 
         (address[] memory pools, address payer) = abi.decode(data, (address[], address));
@@ -61,12 +47,12 @@ contract TestPancakeV3Router is IPancakeV3SwapCallback {
         if (pools.length == 1) {
             // get the address and amount of the token that we need to pay
             address tokenToBePaid = amount0Delta > 0
-                ? IPancakeV3Pool(msg.sender).token0()
-                : IPancakeV3Pool(msg.sender).token1();
+                ? IMieV3Pool(msg.sender).token0()
+                : IMieV3Pool(msg.sender).token1();
             int256 amountToBePaid = amount0Delta > 0 ? amount0Delta : amount1Delta;
 
-            bool zeroForOne = tokenToBePaid == IPancakeV3Pool(pools[0]).token1();
-            IPancakeV3Pool(pools[0]).swap(
+            bool zeroForOne = tokenToBePaid == IMieV3Pool(pools[0]).token1();
+            IMieV3Pool(pools[0]).swap(
                 msg.sender,
                 zeroForOne,
                 -amountToBePaid,
@@ -75,17 +61,9 @@ contract TestPancakeV3Router is IPancakeV3SwapCallback {
             );
         } else {
             if (amount0Delta > 0) {
-                IERC20Minimal(IPancakeV3Pool(msg.sender).token0()).transferFrom(
-                    payer,
-                    msg.sender,
-                    uint256(amount0Delta)
-                );
+                IERC20Minimal(IMieV3Pool(msg.sender).token0()).transferFrom(payer, msg.sender, uint256(amount0Delta));
             } else {
-                IERC20Minimal(IPancakeV3Pool(msg.sender).token1()).transferFrom(
-                    payer,
-                    msg.sender,
-                    uint256(amount1Delta)
-                );
+                IERC20Minimal(IMieV3Pool(msg.sender).token1()).transferFrom(payer, msg.sender, uint256(amount1Delta));
             }
         }
     }

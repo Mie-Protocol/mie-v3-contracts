@@ -8,7 +8,7 @@
 function getLatestPeriodInfo(address _v3Pool) external view returns (uint256 cakePerSecond, uint256 endTime)
 ```
 
-## PancakeV3LmPool
+## MieV3LmPool
 
 ### REWARD_PRECISION
 
@@ -19,7 +19,7 @@ uint256 REWARD_PRECISION
 ### pool
 
 ```solidity
-contract IPancakeV3Pool pool
+contract IMieV3Pool pool
 ```
 
 ### masterChef
@@ -100,7 +100,7 @@ function updatePosition(int24 tickLower, int24 tickUpper, int128 liquidityDelta)
 function getRewardGrowthInside(int24 tickLower, int24 tickUpper) external view returns (uint256 rewardGrowthInsideX128)
 ```
 
-## IPancakeV3FactoryOwner
+## IMieV3FactoryOwner
 
 ### setLmPool
 
@@ -108,7 +108,7 @@ function getRewardGrowthInside(int24 tickLower, int24 tickUpper) external view r
 function setLmPool(address pool, address lmPool) external
 ```
 
-## PancakeV3LmPoolDeployer
+## MieV3LmPoolDeployer
 
 _This contract is for Master Chef to create a corresponding LmPool when
 adding a new farming pool. As for why not just create LmPool inside the
@@ -124,7 +124,7 @@ address masterChef
 ### factoryOwner
 
 ```solidity
-contract IPancakeV3FactoryOwner factoryOwner
+contract IMieV3FactoryOwner factoryOwner
 ```
 
 ### onlyMasterChef
@@ -136,24 +136,24 @@ modifier onlyMasterChef()
 ### constructor
 
 ```solidity
-constructor(address _masterChef, contract IPancakeV3FactoryOwner _factoryOwner) public
+constructor(address _masterChef, contract IMieV3FactoryOwner _factoryOwner) public
 ```
 
 ### deploy
 
 ```solidity
-function deploy(contract IPancakeV3Pool pool) external returns (contract IPancakeV3LmPool lmPool)
+function deploy(contract IMieV3Pool pool) external returns (contract IMieV3LmPool lmPool)
 ```
 
 _Deploys a LmPool_
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| pool | contract IPancakeV3Pool | The contract address of the PancakeSwap V3 pool |
+| Name | Type                | Description                                 |
+| ---- | ------------------- | ------------------------------------------- |
+| pool | contract IMieV3Pool | The contract address of the MieSwap V3 pool |
 
-## IPancakeV3LmPool
+## IMieV3LmPool
 
 ### accumulateReward
 
@@ -191,18 +191,18 @@ Retrieves reward growth data
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| self | mapping(int24 &#x3D;&gt; struct LmTick.Info) | The mapping containing all tick information for initialized ticks |
-| tickLower | int24 | The lower tick boundary of the position |
-| tickUpper | int24 | The upper tick boundary of the position |
-| tickCurrent | int24 | The current tick |
-| rewardGrowthGlobalX128 | uint256 | The all-time global reward growth, per unit of liquidity |
+| Name                   | Type                                         | Description                                                       |
+| ---------------------- | -------------------------------------------- | ----------------------------------------------------------------- |
+| self                   | mapping(int24 &#x3D;&gt; struct LmTick.Info) | The mapping containing all tick information for initialized ticks |
+| tickLower              | int24                                        | The lower tick boundary of the position                           |
+| tickUpper              | int24                                        | The upper tick boundary of the position                           |
+| tickCurrent            | int24                                        | The current tick                                                  |
+| rewardGrowthGlobalX128 | uint256                                      | The all-time global reward growth, per unit of liquidity          |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name                   | Type    | Description                                                                              |
+| ---------------------- | ------- | ---------------------------------------------------------------------------------------- |
 | rewardGrowthInsideX128 | uint256 | The all-time reward growth, per unit of liquidity, inside the position's tick boundaries |
 
 ### update
@@ -215,20 +215,20 @@ Updates a tick and returns true if the tick was flipped from initialized to unin
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| self | mapping(int24 &#x3D;&gt; struct LmTick.Info) | The mapping containing all tick information for initialized ticks |
-| tick | int24 | The tick that will be updated |
-| tickCurrent | int24 | The current tick |
-| liquidityDelta | int128 | A new amount of liquidity to be added (subtracted) when tick is crossed from left to right (right to left) |
-| rewardGrowthGlobalX128 | uint256 | The all-time global reward growth, per unit of liquidity |
-| upper | bool | true for updating a position's upper tick, or false for updating a position's lower tick |
-| maxLiquidity | uint128 | The maximum liquidity allocation for a single tick |
+| Name                   | Type                                         | Description                                                                                                |
+| ---------------------- | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| self                   | mapping(int24 &#x3D;&gt; struct LmTick.Info) | The mapping containing all tick information for initialized ticks                                          |
+| tick                   | int24                                        | The tick that will be updated                                                                              |
+| tickCurrent            | int24                                        | The current tick                                                                                           |
+| liquidityDelta         | int128                                       | A new amount of liquidity to be added (subtracted) when tick is crossed from left to right (right to left) |
+| rewardGrowthGlobalX128 | uint256                                      | The all-time global reward growth, per unit of liquidity                                                   |
+| upper                  | bool                                         | true for updating a position's upper tick, or false for updating a position's lower tick                   |
+| maxLiquidity           | uint128                                      | The maximum liquidity allocation for a single tick                                                         |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name    | Type | Description                                                                   |
+| ------- | ---- | ----------------------------------------------------------------------------- |
 | flipped | bool | Whether the tick was flipped from initialized to uninitialized, or vice versa |
 
 ### clear
@@ -241,10 +241,10 @@ Clears tick data
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name | Type                                         | Description                                                                   |
+| ---- | -------------------------------------------- | ----------------------------------------------------------------------------- |
 | self | mapping(int24 &#x3D;&gt; struct LmTick.Info) | The mapping containing all initialized tick information for initialized ticks |
-| tick | int24 | The tick that will be cleared |
+| tick | int24                                        | The tick that will be cleared                                                 |
 
 ### cross
 
@@ -256,15 +256,14 @@ Transitions to next tick as needed by price movement
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| self | mapping(int24 &#x3D;&gt; struct LmTick.Info) | The mapping containing all tick information for initialized ticks |
-| tick | int24 | The destination tick of the transition |
-| rewardGrowthGlobalX128 | uint256 | The all-time global reward growth, per unit of liquidity, in token0 |
+| Name                   | Type                                         | Description                                                         |
+| ---------------------- | -------------------------------------------- | ------------------------------------------------------------------- |
+| self                   | mapping(int24 &#x3D;&gt; struct LmTick.Info) | The mapping containing all tick information for initialized ticks   |
+| tick                   | int24                                        | The destination tick of the transition                              |
+| rewardGrowthGlobalX128 | uint256                                      | The all-time global reward growth, per unit of liquidity, in token0 |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name         | Type   | Description                                                                                        |
+| ------------ | ------ | -------------------------------------------------------------------------------------------------- |
 | liquidityNet | int128 | The amount of liquidity added (subtracted) when tick is crossed from left to right (right to left) |
-

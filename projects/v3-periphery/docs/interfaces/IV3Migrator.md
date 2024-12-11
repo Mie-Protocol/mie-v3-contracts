@@ -2,7 +2,7 @@
 
 ## IV3Migrator
 
-Enables migration of liqudity from PancakeSwap v2-compatible pairs into PancakeSwap v3 pools
+Enables migration of liqudity from MieSwap v2-compatible pairs into MieSwap v3 pools
 
 ### MigrateParams
 
@@ -38,7 +38,6 @@ out-of-range position, `amount{0,1}Min` may be set to 0, enforcing that the posi
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name   | Type                             | Description                                                                          |
+| ------ | -------------------------------- | ------------------------------------------------------------------------------------ |
 | params | struct IV3Migrator.MigrateParams | The params necessary to migrate v2 liquidity, encoded as `MigrateParams` in calldata |
-

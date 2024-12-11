@@ -1,6 +1,6 @@
-import { verifyContract } from '@pancakeswap/common/verify'
-import { sleep } from '@pancakeswap/common/sleep'
-import { configs } from '@pancakeswap/common/config'
+import { verifyContract } from '@Mieswap/common/verify'
+import { sleep } from '@Mieswap/common/sleep'
+import { configs } from '@Mieswap/common/config'
 
 async function main() {
   const networkName = network.name
@@ -9,14 +9,12 @@ async function main() {
   if (!config) {
     throw new Error(`No config found for network ${networkName}`)
   }
-  const deployedContracts_masterchef_v3 = await import(`@pancakeswap/masterchef-v3/deployments/${networkName}.json`)
-  const deployedContracts_v3_lm_pool = await import(`@pancakeswap/v3-lm-pool/deployments/${networkName}.json`)
+  const deployedContracts_masterchef_v3 = await import(`@Mieswap/masterchef-v3/deployments/${networkName}.json`)
+  const deployedContracts_v3_lm_pool = await import(`@Mieswap/v3-lm-pool/deployments/${networkName}.json`)
 
-  // Verify pancakeV3LmPoolDeployer
-  console.log('Verify pancakeV3LmPoolDeployer')
-  await verifyContract(deployedContracts_v3_lm_pool.PancakeV3LmPoolDeployer, [
-    deployedContracts_masterchef_v3.MasterChefV3,
-  ])
+  // Verify MieV3LmPoolDeployer
+  console.log('Verify MieV3LmPoolDeployer')
+  await verifyContract(deployedContracts_v3_lm_pool.MieV3LmPoolDeployer, [deployedContracts_masterchef_v3.MasterChefV3])
   await sleep(10000)
 }
 

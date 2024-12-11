@@ -2,8 +2,8 @@ import bn from 'bignumber.js'
 import { Contract, ContractFactory, utils, BigNumber } from 'ethers'
 import { ethers, upgrades, network } from 'hardhat'
 import { linkLibraries } from '../util/linkLibraries'
-import { tryVerify } from '@pancakeswap/common/verify'
-import { configs } from '@pancakeswap/common/config'
+import { tryVerify } from '@Mieswap/common/verify'
+import { configs } from '@Mieswap/common/config'
 import fs from 'fs'
 
 type ContractJson = { abi: any; bytecode: string }
@@ -11,7 +11,7 @@ const artifacts: { [name: string]: ContractJson } = {
   QuoterV2: require('../artifacts/contracts/lens/QuoterV2.sol/QuoterV2.json'),
   TickLens: require('../artifacts/contracts/lens/TickLens.sol/TickLens.json'),
   V3Migrator: require('../artifacts/contracts/V3Migrator.sol/V3Migrator.json'),
-  PancakeInterfaceMulticall: require('../artifacts/contracts/lens/PancakeInterfaceMulticall.sol/PancakeInterfaceMulticall.json'),
+  MieInterfaceMulticall: require('../artifacts/contracts/lens/MieInterfaceMulticall.sol/MieInterfaceMulticall.json'),
   // eslint-disable-next-line global-require
   SwapRouter: require('../artifacts/contracts/SwapRouter.sol/SwapRouter.json'),
   // eslint-disable-next-line global-require
@@ -62,15 +62,16 @@ async function main() {
     throw new Error(`No config found for network ${networkName}`)
   }
 
-  const deployedContracts = await import(`@pancakeswap/v3-core/deployments/${networkName}.json`)
+  const deployedContracts = await import(`@Mieswap/v3-core/deployments/${networkName}.json`)
+  console.log('weth', config.WNATIVE)
 
-  const pancakeV3PoolDeployer_address = deployedContracts.PancakeV3PoolDeployer
-  const pancakeV3Factory_address = deployedContracts.PancakeV3Factory
+  const MieV3PoolDeployer_address = deployedContracts.MieV3PoolDeployer
+  const MieV3Factory_address = deployedContracts.MieV3Factory
 
   const SwapRouter = new ContractFactory(artifacts.SwapRouter.abi, artifacts.SwapRouter.bytecode, owner)
-  const swapRouter = await SwapRouter.deploy(pancakeV3PoolDeployer_address, pancakeV3Factory_address, config.WNATIVE)
+  const swapRouter = await SwapRouter.deploy(MieV3PoolDeployer_address, MieV3Factory_address, config.WNATIVE)
 
-  // await tryVerify(swapRouter, [pancakeV3PoolDeployer_address, pancakeV3Factory_address, config.WNATIVE])
+  // await tryVerify(swapRouter, [MieV3PoolDeployer_address, MieV3Factory_address, config.WNATIVE])
   console.log('swapRouter', swapRouter.address)
 
   // const NFTDescriptor = new ContractFactory(artifacts.NFTDescriptor.abi, artifacts.NFTDescriptor.bytecode, owner)
@@ -126,7 +127,7 @@ async function main() {
     artifacts.NonfungibleTokenPositionDescriptorOffChain.bytecode,
     owner
   )
-  const baseTokenUri = 'https://nft.pancakeswap.com/v3/'
+  const baseTokenUri = 'https://nft.Mieswap.com/v3/'
   const nonfungibleTokenPositionDescriptor = await upgrades.deployProxy(NonfungibleTokenPositionDescriptor, [
     baseTokenUri,
   ])
@@ -141,43 +142,43 @@ async function main() {
     owner
   )
   const nonfungiblePositionManager = await NonfungiblePositionManager.deploy(
-    pancakeV3PoolDeployer_address,
-    pancakeV3Factory_address,
+    MieV3PoolDeployer_address,
+    MieV3Factory_address,
     config.WNATIVE,
     nonfungibleTokenPositionDescriptor.address
   )
 
   // await tryVerify(nonfungiblePositionManager, [
-  //   pancakeV3PoolDeployer_address,
-  //   pancakeV3Factory_address,
+  //   MieV3PoolDeployer_address,
+  //   MieV3Factory_address,
   //   config.WNATIVE,
   //   nonfungibleTokenPositionDescriptor.address,
   // ])
   console.log('nonfungiblePositionManager', nonfungiblePositionManager.address)
 
-  const PancakeInterfaceMulticall = new ContractFactory(
-    artifacts.PancakeInterfaceMulticall.abi,
-    artifacts.PancakeInterfaceMulticall.bytecode,
+  const MieInterfaceMulticall = new ContractFactory(
+    artifacts.MieInterfaceMulticall.abi,
+    artifacts.MieInterfaceMulticall.bytecode,
     owner
   )
 
-  const pancakeInterfaceMulticall = await PancakeInterfaceMulticall.deploy()
-  console.log('PancakeInterfaceMulticall', pancakeInterfaceMulticall.address)
+  const mieInterfaceMulticall = await MieInterfaceMulticall.deploy()
+  console.log('MieInterfaceMulticall', mieInterfaceMulticall.address)
 
-  // await tryVerify(pancakeInterfaceMulticall)
+  // await tryVerify(MieInterfaceMulticall)
 
   const V3Migrator = new ContractFactory(artifacts.V3Migrator.abi, artifacts.V3Migrator.bytecode, owner)
   const v3Migrator = await V3Migrator.deploy(
-    pancakeV3PoolDeployer_address,
-    pancakeV3Factory_address,
+    MieV3PoolDeployer_address,
+    MieV3Factory_address,
     config.WNATIVE,
     nonfungiblePositionManager.address
   )
   console.log('V3Migrator', v3Migrator.address)
 
   // await tryVerify(v3Migrator, [
-  //   pancakeV3PoolDeployer_address,
-  //   pancakeV3Factory_address,
+  //   MieV3PoolDeployer_address,
+  //   MieV3Factory_address,
   //   config.WNATIVE,
   //   nonfungiblePositionManager.address,
   // ])
@@ -189,10 +190,10 @@ async function main() {
   // await tryVerify(tickLens)
 
   const QuoterV2 = new ContractFactory(artifacts.QuoterV2.abi, artifacts.QuoterV2.bytecode, owner)
-  const quoterV2 = await QuoterV2.deploy(pancakeV3PoolDeployer_address, pancakeV3Factory_address, config.WNATIVE)
+  const quoterV2 = await QuoterV2.deploy(MieV3PoolDeployer_address, MieV3Factory_address, config.WNATIVE)
   console.log('QuoterV2', quoterV2.address)
 
-  // await tryVerify(quoterV2, [pancakeV3PoolDeployer_address, pancakeV3Factory_address, config.WNATIVE])
+  // await tryVerify(quoterV2, [MieV3PoolDeployer_address, MieV3Factory_address, config.WNATIVE])
 
   const contracts = {
     SwapRouter: swapRouter.address,
@@ -203,7 +204,7 @@ async function main() {
     // NFTDescriptorEx: nftDescriptorEx.address,
     NonfungibleTokenPositionDescriptor: nonfungibleTokenPositionDescriptor.address,
     NonfungiblePositionManager: nonfungiblePositionManager.address,
-    PancakeInterfaceMulticall: pancakeInterfaceMulticall.address,
+    MieInterfaceMulticall: mieInterfaceMulticall.address,
   }
 
   fs.writeFileSync(`./deployments/${networkName}.json`, JSON.stringify(contracts, null, 2))

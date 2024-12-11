@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 pragma solidity >=0.5.0;
 
-/// @title Minimal ERC20 interface for PancakeSwap
-/// @notice Contains a subset of the full ERC20 interface that is used in PancakeSwap V3
+/// @title Minimal ERC20 interface for MieSwap
+/// @notice Contains a subset of the full ERC20 interface that is used in MieSwap V3
 interface IERC20Minimal {
     /// @notice Returns the balance of a token
     /// @param account The account for which to look up the number of tokens it has, i.e. its balance
@@ -32,11 +32,7 @@ interface IERC20Minimal {
     /// @param recipient The recipient of the transfer
     /// @param amount The amount of the transfer
     /// @return Returns true for a successful transfer, false for unsuccessful
-    function transferFrom(
-        address sender,
-        address recipient,
-        uint256 amount
-    ) external returns (bool);
+    function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
 
     /// @notice Event emitted when tokens are transferred from one address to another, either via `#transfer` or `#transferFrom`.
     /// @param from The account from which the tokens were sent, i.e. the balance decreased

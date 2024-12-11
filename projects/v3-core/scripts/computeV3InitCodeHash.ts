@@ -1,5 +1,5 @@
 import { ethers } from 'hardhat'
-import PancakeV3PoolArtifact from '../artifacts/contracts/PancakeV3Pool.sol/PancakeV3Pool.json'
+import MieV3PoolArtifact from '../artifacts/contracts/MieV3Pool.sol/MieV3Pool.json'
 
-const hash = ethers.utils.keccak256(PancakeV3PoolArtifact.bytecode)
+const hash = ethers.utils.keccak256(MieV3PoolArtifact.bytecode)
 console.log(hash)

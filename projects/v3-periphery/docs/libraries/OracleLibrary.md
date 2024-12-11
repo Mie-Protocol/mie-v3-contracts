@@ -10,20 +10,20 @@ Provides functions to integrate with V3 pool oracle
 function consult(address pool, uint32 secondsAgo) internal view returns (int24 arithmeticMeanTick, uint128 harmonicMeanLiquidity)
 ```
 
-Calculates time-weighted means of tick and liquidity for a given PancakeSwap V3 pool
+Calculates time-weighted means of tick and liquidity for a given MieSwap V3 pool
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| pool | address | Address of the pool that we want to observe |
-| secondsAgo | uint32 | Number of seconds in the past from which to calculate the time-weighted means |
+| Name       | Type    | Description                                                                   |
+| ---------- | ------- | ----------------------------------------------------------------------------- |
+| pool       | address | Address of the pool that we want to observe                                   |
+| secondsAgo | uint32  | Number of seconds in the past from which to calculate the time-weighted means |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| arithmeticMeanTick | int24 | The arithmetic mean tick from (block.timestamp - secondsAgo) to block.timestamp |
+| Name                  | Type    | Description                                                                        |
+| --------------------- | ------- | ---------------------------------------------------------------------------------- |
+| arithmeticMeanTick    | int24   | The arithmetic mean tick from (block.timestamp - secondsAgo) to block.timestamp    |
 | harmonicMeanLiquidity | uint128 | The harmonic mean liquidity from (block.timestamp - secondsAgo) to block.timestamp |
 
 ### getQuoteAtTick
@@ -36,17 +36,17 @@ Given a tick and a token amount, calculates the amount of token received in exch
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| tick | int24 | Tick value used to calculate the quote |
-| baseAmount | uint128 | Amount of token to be converted |
-| baseToken | address | Address of an ERC20 token contract used as the baseAmount denomination |
+| Name       | Type    | Description                                                             |
+| ---------- | ------- | ----------------------------------------------------------------------- |
+| tick       | int24   | Tick value used to calculate the quote                                  |
+| baseAmount | uint128 | Amount of token to be converted                                         |
+| baseToken  | address | Address of an ERC20 token contract used as the baseAmount denomination  |
 | quoteToken | address | Address of an ERC20 token contract used as the quoteAmount denomination |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name        | Type    | Description                                               |
+| ----------- | ------- | --------------------------------------------------------- |
 | quoteAmount | uint256 | Amount of quoteToken received for baseAmount of baseToken |
 
 ### getOldestObservationSecondsAgo
@@ -59,14 +59,14 @@ Given a pool, it returns the number of seconds ago of the oldest stored observat
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| pool | address | Address of PancakeSwap V3 pool that we want to observe |
+| Name | Type    | Description                                        |
+| ---- | ------- | -------------------------------------------------- |
+| pool | address | Address of MieSwap V3 pool that we want to observe |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name       | Type   | Description                                                             |
+| ---------- | ------ | ----------------------------------------------------------------------- |
 | secondsAgo | uint32 | The number of seconds ago of the oldest observation stored for the pool |
 
 ### getBlockStartingTickAndLiquidity
@@ -79,16 +79,16 @@ Given a pool, it returns the tick value as of the start of the current block
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| pool | address | Address of PancakeSwap V3 pool |
+| Name | Type    | Description                |
+| ---- | ------- | -------------------------- |
+| pool | address | Address of MieSwap V3 pool |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| [0] | int24 | The tick that the pool was in at the start of the current block |
-| [1] | uint128 |  |
+| Name | Type    | Description                                                     |
+| ---- | ------- | --------------------------------------------------------------- |
+| [0]  | int24   | The tick that the pool was in at the start of the current block |
+| [1]  | uint128 |                                                                 |
 
 ### WeightedTickData
 
@@ -113,14 +113,14 @@ Note that the weighted arithmetic mean tick corresponds to the weighted geometri
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name             | Type                                    | Description                   |
+| ---------------- | --------------------------------------- | ----------------------------- |
 | weightedTickData | struct OracleLibrary.WeightedTickData[] | An array of ticks and weights |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name                       | Type  | Description                       |
+| -------------------------- | ----- | --------------------------------- |
 | weightedArithmeticMeanTick | int24 | The weighted arithmetic mean tick |
 
 ### getChainedPrice
@@ -136,14 +136,13 @@ There must be one tick for each pairwise set of tokens._
 
 #### Parameters
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| tokens | address[] | The token contract addresses |
-| ticks | int24[] | The ticks, representing the price of each token pair in `tokens` |
+| Name   | Type      | Description                                                      |
+| ------ | --------- | ---------------------------------------------------------------- |
+| tokens | address[] | The token contract addresses                                     |
+| ticks  | int24[]   | The ticks, representing the price of each token pair in `tokens` |
 
 #### Return Values
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
+| Name          | Type   | Description                                                                             |
+| ------------- | ------ | --------------------------------------------------------------------------------------- |
 | syntheticTick | int256 | The synthetic tick, representing the relative price of the outermost tokens in `tokens` |
-

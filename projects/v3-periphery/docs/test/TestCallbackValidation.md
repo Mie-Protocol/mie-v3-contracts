@@ -5,6 +5,5 @@
 ### verifyCallback
 
 ```solidity
-function verifyCallback(address factory, address tokenA, address tokenB, uint24 fee) external view returns (contract IPancakeV3Pool pool)
+function verifyCallback(address factory, address tokenA, address tokenB, uint24 fee) external view returns (contract IMieV3Pool pool)
 ```
-

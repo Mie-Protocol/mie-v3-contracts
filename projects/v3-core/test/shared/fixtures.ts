@@ -1,33 +1,33 @@
 import { BigNumber } from 'ethers'
 import { ethers } from 'hardhat'
-import { MockTimePancakeV3Pool } from '../../typechain-types/contracts/test/MockTimePancakeV3Pool'
+import { MockTimeMieV3Pool } from '../../typechain-types/contracts/test/MockTimeMieV3Pool'
 import { TestERC20 } from '../../typechain-types/contracts/test/TestERC20'
-import { PancakeV3Factory } from '../../typechain-types/contracts/PancakeV3Factory'
-import { PancakeV3PoolDeployer } from '../../typechain-types/contracts/PancakeV3PoolDeployer'
-import { TestPancakeV3Callee } from '../../typechain-types/contracts/test/TestPancakeV3Callee'
-import { TestPancakeV3Router } from '../../typechain-types/contracts/test/TestPancakeV3Router'
-import { MockTimePancakeV3PoolDeployer } from '../../typechain-types/contracts/test/MockTimePancakeV3PoolDeployer'
-import PancakeV3LmPoolArtifact from '@pancakeswap/v3-lm-pool/artifacts/contracts/PancakeV3LmPool.sol/PancakeV3LmPool.json'
+import { MieV3Factory } from '../../typechain-types/contracts/MieV3Factory'
+import { MieV3PoolDeployer } from '../../typechain-types/contracts/MieV3PoolDeployer'
+import { TestMieV3Callee } from '../../typechain-types/contracts/test/TestMieV3Callee'
+import { TestMieV3Router } from '../../typechain-types/contracts/test/TestMieV3Router'
+import { MockTimeMieV3PoolDeployer } from '../../typechain-types/contracts/test/MockTimeMieV3PoolDeployer'
+import MieV3LmPoolArtifact from '@Mieswap/v3-lm-pool/artifacts/contracts/MieV3LmPool.sol/MieV3LmPool.json'
 
 import { Fixture } from 'ethereum-waffle'
 
 interface FactoryFixture {
-  factory: PancakeV3Factory
+  factory: MieV3Factory
 }
 
 interface DeployerFixture {
-  deployer: PancakeV3PoolDeployer
+  deployer: MieV3PoolDeployer
 }
 
 async function factoryFixture(): Promise<FactoryFixture> {
   const { deployer } = await deployerFixture()
-  const factoryFactory = await ethers.getContractFactory('PancakeV3Factory')
-  const factory = (await factoryFactory.deploy(deployer.address)) as PancakeV3Factory
+  const factoryFactory = await ethers.getContractFactory('MieV3Factory')
+  const factory = (await factoryFactory.deploy(deployer.address)) as MieV3Factory
   return { factory }
 }
 async function deployerFixture(): Promise<DeployerFixture> {
-  const deployerFactory = await ethers.getContractFactory('PancakeV3PoolDeployer')
-  const deployer = (await deployerFactory.deploy()) as PancakeV3PoolDeployer
+  const deployerFactory = await ethers.getContractFactory('MieV3PoolDeployer')
+  const deployer = (await deployerFactory.deploy()) as MieV3PoolDeployer
   return { deployer }
 }
 
@@ -53,14 +53,14 @@ async function tokensFixture(): Promise<TokensFixture> {
 type TokensAndFactoryFixture = FactoryFixture & TokensFixture
 
 interface PoolFixture extends TokensAndFactoryFixture {
-  swapTargetCallee: TestPancakeV3Callee
-  swapTargetRouter: TestPancakeV3Router
+  swapTargetCallee: TestMieV3Callee
+  swapTargetRouter: TestMieV3Router
   createPool(
     fee: number,
     tickSpacing: number,
     firstToken?: TestERC20,
     secondToken?: TestERC20
-  ): Promise<MockTimePancakeV3Pool>
+  ): Promise<MockTimeMieV3Pool>
 }
 
 // Monday, October 5, 2020 9:00:00 AM GMT-05:00
@@ -70,16 +70,16 @@ export const poolFixture: Fixture<PoolFixture> = async function (): Promise<Pool
   const { factory } = await factoryFixture()
   const { token0, token1, token2 } = await tokensFixture()
 
-  const MockTimePancakeV3PoolDeployerFactory = await ethers.getContractFactory('MockTimePancakeV3PoolDeployer')
-  const MockTimePancakeV3PoolFactory = await ethers.getContractFactory('MockTimePancakeV3Pool')
+  const MockTimeMieV3PoolDeployerFactory = await ethers.getContractFactory('MockTimeMieV3PoolDeployer')
+  const MockTimeMieV3PoolFactory = await ethers.getContractFactory('MockTimeMieV3Pool')
 
-  const calleeContractFactory = await ethers.getContractFactory('TestPancakeV3Callee')
-  const routerContractFactory = await ethers.getContractFactory('TestPancakeV3Router')
+  const calleeContractFactory = await ethers.getContractFactory('TestMieV3Callee')
+  const routerContractFactory = await ethers.getContractFactory('TestMieV3Router')
 
-  const swapTargetCallee = (await calleeContractFactory.deploy()) as TestPancakeV3Callee
-  const swapTargetRouter = (await routerContractFactory.deploy()) as TestPancakeV3Router
+  const swapTargetCallee = (await calleeContractFactory.deploy()) as TestMieV3Callee
+  const swapTargetRouter = (await routerContractFactory.deploy()) as TestMieV3Router
 
-  const PancakeV3LmPoolFactory = await ethers.getContractFactoryFromArtifact(PancakeV3LmPoolArtifact)
+  const MieV3LmPoolFactory = await ethers.getContractFactoryFromArtifact(MieV3LmPoolArtifact)
 
   return {
     token0,
@@ -89,8 +89,7 @@ export const poolFixture: Fixture<PoolFixture> = async function (): Promise<Pool
     swapTargetCallee,
     swapTargetRouter,
     createPool: async (fee, tickSpacing, firstToken = token0, secondToken = token1) => {
-      const mockTimePoolDeployer =
-        (await MockTimePancakeV3PoolDeployerFactory.deploy()) as MockTimePancakeV3PoolDeployer
+      const mockTimePoolDeployer = (await MockTimeMieV3PoolDeployerFactory.deploy()) as MockTimeMieV3PoolDeployer
       const tx = await mockTimePoolDeployer.deploy(
         factory.address,
         firstToken.address,
@@ -102,22 +101,18 @@ export const poolFixture: Fixture<PoolFixture> = async function (): Promise<Pool
       const receipt = await tx.wait()
       const poolAddress = receipt.events?.[0].args?.pool as string
 
-      const mockTimePancakeV3Pool = MockTimePancakeV3PoolFactory.attach(poolAddress) as MockTimePancakeV3Pool
+      const mockTimeMieV3Pool = MockTimeMieV3PoolFactory.attach(poolAddress) as MockTimeMieV3Pool
 
       await (
         await factory.setLmPool(
           poolAddress,
           (
-            await PancakeV3LmPoolFactory.deploy(
-              poolAddress,
-              ethers.constants.AddressZero,
-              Math.floor(Date.now() / 1000)
-            )
+            await MieV3LmPoolFactory.deploy(poolAddress, ethers.constants.AddressZero, Math.floor(Date.now() / 1000))
           ).address
         )
       ).wait()
 
-      return mockTimePancakeV3Pool
+      return mockTimeMieV3Pool
     },
   }
 }

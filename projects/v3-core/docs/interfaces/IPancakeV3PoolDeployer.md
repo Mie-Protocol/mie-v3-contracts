@@ -1,6 +1,6 @@
 # Solidity API
 
-## IPancakeV3PoolDeployer
+## IMieV3PoolDeployer
 
 A contract that constructs a pool must implement this to pass arguments to the pool
 
@@ -27,4 +27,3 @@ Returns tickSpacing The minimum number of ticks between initialized ticks_
 ```solidity
 function deploy(address factory, address token0, address token1, uint24 fee, int24 tickSpacing) external returns (address pool)
 ```
-

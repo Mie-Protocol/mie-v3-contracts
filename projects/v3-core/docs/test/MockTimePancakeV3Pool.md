@@ -1,6 +1,6 @@
 # Solidity API
 
-## MockTimePancakeV3Pool
+## MockTimeMieV3Pool
 
 ### time
 
@@ -26,11 +26,10 @@ function setFeeGrowthGlobal1X128(uint256 _feeGrowthGlobal1X128) external
 function advanceTime(uint256 by) external
 ```
 
-### _blockTimestamp
+### \_blockTimestamp
 
 ```solidity
 function _blockTimestamp() internal view returns (uint32)
 ```
 
-_Returns the block timestamp truncated to 32 bits, i.e. mod 2**32. This method is overridden in tests._
-
+_Returns the block timestamp truncated to 32 bits, i.e. mod 2\*\*32. This method is overridden in tests._
